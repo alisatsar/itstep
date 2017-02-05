@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main()
+{
+	int k = 135; //число
+	int count = 0; //количество чисел в числе
+	int summ = 0; //сумма чисел в числе
+	int zeroCount = 0; // количество нулей
+
+	do
+	{
+		int ostatok = k % 10;
+		if (ostatok == 0)
+		{
+			++zeroCount;
+		}
+		k = k / 10;
+		summ += ostatok; 
+		count++;
+		printf("%i\n", ostatok);
+	} while (k != 0);
+
+	printf("count = %i\n", count);
+	printf("summ = %i\n", summ);
+  printf("counter zero = %i\n", zeroCount);
+}
