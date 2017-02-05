@@ -17,7 +17,7 @@ enum Action
 int sum(int a, int b);
 int deduct(int a, int b);
 int multiply(int a, int b);
-float devide(float a, float b);
+float divide(float a, float b);
 float calculate(enum Action action, int a, int b);
 
 int main()
@@ -26,16 +26,16 @@ int main()
 
 	int a;
 	int b;
-	enum Action action;
-	float result;
-
+	
 	printf("Введите число a\n");
 	scanf("%i", &a);
 	printf("Введите число b\n");
 	scanf("%i", &b);
 
-	printf("Выберите действие:\n");
-	printf("Сложить - +\nВычесть - -\nУмножить - *\nРазделить - /\n");
+	printf("Выберите действие:\n"
+	    "Сложить - +\nВычесть - -\nУмножить - *\nРазделить - /\n");
+	
+	enum Action action;
 	do {
 		action = getchar();
 	} while (action != '\n' && action != EOF);
@@ -60,7 +60,7 @@ int multiply(int a, int b)
 	return a * b;
 }
 
-float devide(float a, float b)
+float divide(float a, float b)
 {
 	if (b == 0)
 	{
@@ -88,7 +88,7 @@ float calculate(enum Action action, int a, int b)
 		result = multiply(a, b);
 		break;
 	case Divide:
-		result = devide(a, b);
+		result = divide(a, b);
 		break;
 	}
 	return result;
