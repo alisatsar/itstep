@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+long long printFactorial(long long n);
+
+int main()
+{
+	int const n = 4;
+	printf("factor(%i) = %ld\n", n, printFactorial(n));
+}
+
+long long printFactorial(long long n)
+{
+	if (n < 2)
+	{
+		return 1;  //выходим
+	}
+	return n * printFactorial(n - 1);
+}
