@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+#define ELEMENTS 10
+#define ELEMENTS2 20
+
+void enterArray(int mas[]);
+void printNonZero(int mas[]);
+
+int main()
+{
+	int mas[ELEMENTS];
+	int mas2[ELEMENTS2];
+
+	enterArray(mas, ELEMENTS);
+	printNonZero(mas, ELEMENTS);
+
+	enterArray(mas2, ELEMENTS2);
+	printNonZero(mas2, ELEMENTS2);
+}
+
+//enter array
+void enterArray(int array[], int count)
+{
+	for (int i = 0; i < count; i++)
+	{
+		printf("Enter value array %i: \n", i);
+		scanf("%i", &array[i]);
+	}
+}
+
+void printNonZero(int const array[], int count)
+{
+	for (int i = 0; i < count; i++)
+	{
+		if (array[i] != 0)
+		{
+			printf("%i\t", array[i]);
+		}
+	}
+}
