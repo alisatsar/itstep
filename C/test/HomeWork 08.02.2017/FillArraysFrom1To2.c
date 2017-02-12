@@ -8,7 +8,7 @@
 
 #define ELEMENTS 10
 
-void fillArray(int arrayFull[]);
+void fillArrays(int arrayFull[]);
 
 int main()
 {
@@ -17,7 +17,7 @@ int main()
 	fillArrays(arrayFull);
 }
 
-void fillArray(int arrayFull[])
+void fillArrays(int arrayFull[])
 {
 	int arraySecond[5];
 	int arrayFirst[5];
