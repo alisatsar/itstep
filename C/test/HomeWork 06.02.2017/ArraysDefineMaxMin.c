@@ -14,9 +14,9 @@ int main()
 	int minProductsSold;
 	int maxProductsSold;
 
+	srand(time(0));
 	for (int i = 0; i < DAYS_COUNT; i++)
 	{
-		srand(time(0));
 		howMuchProductSold[i] = rand() % 100;
 		printf("How mush the products was sold for %i day: %i\n", i + 1, howMuchProductSold[i]);
 		Sleep(1500);
