@@ -72,4 +72,4 @@ True
 >>>  line = ‘aaa,bbb,ccccc,dd\n’
 >>>  line = line. rstrip()  # Удаляет завершающие пробельные символы
 >>>  line
-‘ aaa, bbb, ccccc, dd’
+‘ aaa, bbb, ccccc, dd’ 
