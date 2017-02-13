@@ -73,3 +73,9 @@ True
 >>>  line = line. rstrip()  # Удаляет завершающие пробельные символы
 >>>  line
 ‘ aaa, bbb, ccccc, dd’ 
+
+>>>  ‘%s, eggs, and %s’ % (‘spam’, ‘SPAM!’)        # Выражение (во всех версиях)
+‘spam, eggs, and SPAM!’
+
+>>>  ‘{0}, eggs, and {1}’.format(‘spam’, ‘SPAM!’)     # Метод (2.6, 3.0)
+‘spam, eggs, and SPAM!’
