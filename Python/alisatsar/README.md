@@ -1,2 +1,0 @@
-# alisatsar
-student 
