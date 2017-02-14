@@ -79,3 +79,28 @@ True
 
 >>>  ‘{0}, eggs, and {1}’.format(‘spam’, ‘SPAM!’)     # Метод (2.6, 3.0)
 ‘spam, eggs, and SPAM!’
+
+s = 'spam'
+print(s.upper()) #Выводит в верхний регистр
+print(""" sflafjlg
+lsjfls
+sgjoq sklg;sag""") #отображает текст так как он написан
+
+print(s.lower()) #выводит мелкими
+
+print(s.title()) #все большие первые буквы слов
+
+print(s.replace("s", "z")) #замена слова или буквы во всем тексте
+
+print(s.swapcase()) #меняет наоборот регистр
+
+print(s) #меняет наоборот регистр
+
+print("and", end = "123") #параметр добавляет строку к предидущему слову and
+
+print("it...")
+
+print(123 // 14) #показывает целое значение через //
+
+car = input("your kredit")
+car = int(car)
