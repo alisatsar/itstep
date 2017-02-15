@@ -13,31 +13,30 @@ void fillArrays(int arrayFull[]);
 int main()
 {
 	int arrayFull[ELEMENTS];
+	int arrayFirst[ELEMENTS / 2];
+	int arraySecond[ELEMENTS / 2];
 
-	fillArrays(arrayFull);
+	fillArrays(arrayFull, arrayFirst, arraySecond);
+	printArray(arrayFull, ELEMENTS);
+	printArray(arrayFirst, ELEMENTS / 2);
+	printArray(arraySecond, ELEMENTS / 2);
 }
 
-void fillArrays(int arrayFull[])
+void fillArrays(int arrayFull[], int arrayFirst[], int arraySecond[])
 {
-	int arraySecond[5];
-	int arrayFirst[5];
-
 	srand(time(0));
 	for (int i = 0; i < ELEMENTS; i++)
 	{
 		arrayFull[i] = rand() % 10;
-		printf("arrayFull[%i] = %i\n", i, arrayFull[i]);
 	}
 
 	for (int i = 0; i < ELEMENTS / 2; i++)
 	{
 		arrayFirst[i] = arrayFull[i];
-		printf("arrayFirst[%i] = %i\n", i, arrayFirst[i]);
 	}
 
 	for (int i = 0; i < ELEMENTS / 2; i++)
 	{
 		arraySecond[i] = arrayFull[i + 5];
-		printf("arraySecond[%i] = %i\n", i, arraySecond[i]);
 	}
 }
