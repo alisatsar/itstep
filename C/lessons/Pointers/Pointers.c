@@ -7,7 +7,7 @@
 {
 	int i = 5;
 	int* pI1 = &i;
-	int* pI2 = &i;
+	int* pI2 = &i; //&получение адреса
 	printf("%i\n", &i); //преведние адреса числа i в int
 	printf("%i\n", pI1);
 	printf("%i\n", pI2);
