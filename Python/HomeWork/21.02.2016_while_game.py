@@ -1,77 +1,239 @@
-#1.Более сложный вариант!
+1.Более сложный вариант!
 #Допишите программу Кости таким образом, чтобы можно было играть с компьютером  или с другим игроком в кости, при этом
 # в начале игры был выбор с кем играть - компьютер или партнер.
 
+#добавляем рандом
 import random
 
-chooseOpponent = input("Please, choose opponent: C - computer, A - another player \n")
+print("Welcome to casino!\n")
 
+# Предложение выбора режима игры
+chooseOpponent = input("Please, choose opponent: D - play with dealer, C - computer, A - another player, \n")
+
+# Играет один с диллером
+if chooseOpponent == 'D':
+    deposit = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
+    bankroll = deposit
+    menuChoose = 1
+
+    while menuChoose == 1:
+        if bankroll == 0:
+            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
+            if addDeposit == 1:
+                deposit = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
+                bankroll = deposit
+            else:
+                break
+
+        bet = int(input("Please, enter your bet: "))  # Игрок делает ставку
+        # Проверка рентабельносити ставки
+        while bet > bankroll:
+            bet = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))  # Игрок делает ставку
+
+        guessNumber = int(input("Please, enter number from 2 to 12:"))  # Игрок загадывает число
+
+        # Проверка введеннох данных игроком
+        while guessNumber < 1 or guessNumber > 13:
+            guessNumber = int(input("Your number is not correct. Please, enter number from 2 to 12: "))
+
+        # Диллер делает бросок
+        print("The dealer makes the throw: ")
+        dise1 = random.randint(1, 6)  # кость 1
+        dise2 = random.randint(1, 6)  # кость 2
+
+        totalScore = dise1 + dise2  # общий счет
+        # если угадал
+        if totalScore == guessNumber:
+            bankroll = bet * 2 + bankroll  # подсчет банкрола если угадал
+            print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore,
+                  "\nCongratulation! You are winner!\nYour bankroll = ", bankroll)
+        # если угадал
+        else:
+            bankroll = bankroll - bet  # подсчет банкрола если не угадал
+            print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore,
+                  "\nYou are not guess!\nYour bankroll = ", bankroll)
+
+        #Продолжаем игру или нет
+        menuChoose = int(input("If you want play, enter - 1. If you want exit game, enter - 0"))
+        if menuChoose == 1:
+            continue
+        elif menuChoose == 0:
+            break
+
+
+#Играет с компьютером
 if chooseOpponent == 'C':
-    counterComputerThrow = 0
-    counterPlayerThrow = 0
-    totalScoreComputer = 0
-    totalScorePlayer = 0
-    throw = 0
+    deposit = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
+    bankroll = deposit
+    menuChoose = 1
+    bankrollComputer = deposit  # компьютеру устанавливается такой же депозит как и пользователю
 
-    while throw <= 4:
-        counterComputerThrow = counterComputerThrow + 1
-        print("The computer makes the ", counterComputerThrow,  "throw: ")
-        computerThrow1 = random.randint(1, 6)
-        computerThrow2 = random.randint(1, 6)
-        totalComputer = computerThrow1 + computerThrow2
-        print("Throw",  counterComputerThrow, ": \ndice 1 = ", computerThrow1, "\ndice 2 = ",
-              computerThrow2, "\nTotal = ", totalComputer)
-        totalScoreComputer = totalScoreComputer + totalComputer
+    while menuChoose == 1:
+        if bankroll == 0:
+            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
+            if addDeposit == 1:
+                bankroll = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
+            else:
+                break
 
-        counterPlayerThrow = counterPlayerThrow + 1
-        print("The player makes the ", counterPlayerThrow, "throw: ")
-        playerThrow1 = random.randint(1, 6)
-        playerThrow2 = random.randint(1, 6)
-        totalPlayer = playerThrow1 + playerThrow1
-        print("Throw", counterPlayerThrow, ": \ndice 1 = ", playerThrow1, "\ndice 2 = ",
-              playerThrow2, "\nTotal = ", totalPlayer)
-        totalScorePlayer = totalScorePlayer + totalPlayer
-        throw = counterComputerThrow + counterPlayerThrow
+        if bankrollComputer == 0:
+            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
+            if addDeposit == 1:
+                bankrollComputer = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
+            else:
+                break
 
+        betUser = int(input("Please, enter your bet: "))  # Пользователь делает ставку
+        # Проверка рентабельносити ставки
+        while betUser > bankroll:
+            betUser = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))  # Игрок делает ставку
 
-    if totalScorePlayer < totalScoreComputer:
-        print("\nYour score: ", totalScorePlayer,"\nComputer score: ", totalScoreComputer, "\nComputer winner!!!")
-    elif totalScorePlayer > totalScoreComputer:
-        print("\nYour score: ", totalScorePlayer,"\nComputer score: ", totalScoreComputer, "\nYou are winner!!!")
-    elif totalScorePlayer == totalScoreComputer:
-        print("\nYour score: ", totalScorePlayer,"\nComputer score: ", totalScoreComputer, "\nWinner both!!!")
+        betComputer = random.randint(1, bankrollComputer)  # Компютер делает ставку
 
+        guessNumberUser = int(input("Please, enter number from 2 to 12:"))  # Пользователь загадывает число
+        print("Computer deposit: ", bankrollComputer)
+
+        # Проверка введеннох данных пользователем
+        while guessNumberUser < 1 or guessNumberUser > 13:
+            guessNumberUser = int(input("Your number is not correct. Please, enter number from 2 to 12: "))
+
+        guessComputerNumber = random.randint(1, 6) + random.randint(1, 6)  # Компьютер загадывает число
+        print("Computer bet: ", betComputer, "Computer number: ", guessComputerNumber)
+
+        # Диллер делает бросок
+        print("The dealer makes the throw: ")
+        dise1 = random.randint(1, 6)  # кость 1
+        dise2 = random.randint(1, 6)  # кость 2
+
+        totalScore = dise1 + dise2  # общий счет
+
+        # Если компьютер или пользователь угадал или не угадал
+        if guessNumberUser == totalScore or guessComputerNumber == totalScore:
+            print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore)
+            if guessNumberUser == totalScore and guessComputerNumber != totalScore:
+                bankroll = bankroll + betUser * 2
+                bankrollComputer = bankroll - betComputer
+                print("You winner, but computer no!\nYour bankroll = ", bankroll,
+                          "Computer bankroll = ", bankrollComputer)
+            if guessNumberUser != totalScore and guessComputerNumber == totalScore:
+                bankroll = bankroll - betUser
+                bankrollComputer = bankrollComputer + betComputer * 2
+                print("Computer winner, but you no!\nYour bankroll = ", bankroll,
+                          "Computer bankroll = ", bankrollComputer)
+
+        # Если угадали оба
+        elif guessNumberUser == totalScore and guessComputerNumber == totalScore:
+            bankroll = bankroll + betUser * 2
+            bankrollComputer = bankrollComputer + betComputer * 2
+            print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore)
+            print("Computer and you winner!\nYour bankroll = ", bankroll,
+                      "Computer bankroll = ", bankrollComputer)
+
+        # Если оба не угадали
+        elif guessNumberUser != totalScore or guessComputerNumber != totalScore:
+            print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore)
+            bankroll = bankroll - betUser
+            bankrollComputer = bankrollComputer - betComputer
+            print("Computer and you not guess!\nYour bankroll = ", bankroll,
+                      "Computer bankroll = ", bankrollComputer)
+
+        # Продолжаем игру или нет
+        menuChoose = int(input("If you want play, enter - 1. If you want exit game, enter - 0"))
+        if menuChoose == 1:
+            continue
+        elif menuChoose == 0:
+            break
+
+#Игрок играет с другим игроком
 if chooseOpponent == 'A':
-    counterPlayer1Throw = 0
-    counterPlayer2Throw = 0
-    totalScorePlayer1 = 0
-    totalScorePlayer2 = 0
-    throw = 0
+    menuChoose = 1
 
-    while throw <= 4:
-        counterPlayer1Throw = counterPlayer1Throw + 1
-        print("The computer makes the ", counterPlayer1Throw,  "throw: ")
-        player1Throw1 = random.randint(1, 6)
-        player1Throw2 = random.randint(1, 6)
-        totalPlayer1 = player1Throw1 + player1Throw2
-        print("Throw",  counterPlayer1Throw, ": \ndice 1 = ", player1Throw1, "\ndice 2 = ",
-              player1Throw1, "\nTotal = ", totalPlayer1)
-        totalScorePlayer1 = totalScorePlayer1 + totalPlayer1
+    namePlayer1 = input("What is your name player 1: ")
+    namePlayer2 = input("What is your name player 2: ")
 
-        counterPlayer2Throw = counterPlayer2Throw + 1
-        print("The computer makes the ", counterPlayer2Throw, "throw: ")
-        player2Throw1 = random.randint(1, 6)
-        player2Throw2 = random.randint(1, 6)
-        totalPlayer2 = player2Throw1 + player2Throw2
-        print("Throw", counterPlayer2Throw, ": \ndice 1 = ", player2Throw1, "\ndice 2 = ",
-              player2Throw1, "\nTotal = ", totalPlayer2)
-        totalScorePlayer2 = totalScorePlayer2 + totalPlayer2
-        throw = totalScorePlayer1 + totalScorePlayer2
+    print(namePlayer1)
+    depositPlayer1 = int(input("Please, enter your deposit: ")) # Игрок №1 вносит депозит
+    print(namePlayer2)
+    depositPlayer2 = int(input("Please, enter your deposit: "))  # Игрок №2 вносит депозит
 
+    while menuChoose == 1:
+        if depositPlayer1 == 0:
+            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
+            if addDeposit == 1:
+                depositPlayer1 = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
+            else:
+                break
 
-    if totalScorePlayer1 < totalScorePlayer2:
-        print("\nPlayer 1 score: ", totalScorePlayer1,"\nPlayer 2 score: ", totalScorePlayer2, "\nPlayer 2 winner!!!")
-    elif totalScorePlayer1 > totalScorePlayer2:
-        print("\nPlayer 1 score: ", totalScorePlayer1, "\nPlayer 2 score: ", totalScorePlayer2, "\nPlayer 1 winner!!!")
-    elif totalScorePlayer == totalScoreComputer:
-        print("\nPlayer 1 score: ", totalScorePlayer1, "\nPlayer 2 score: ", totalScorePlayer2, "\nWinner both!!!")
+        if depositPlayer2 == 0:
+            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
+            if addDeposit == 1:
+                depositPlayer2 = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
+            else:
+                break
+
+        print(namePlayer1)
+        betPlayer1 = int(input("Please, enter your bet: "))  #Игрок №1 делает ставку делает ставку
+        while betPlayer1 > depositPlayer1:
+            betPlayer1 = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))
+
+        print(namePlayer2)
+        betPlayer2 = int(input("Please, enter your bet: "))  # Игрок №2 делает ставку делает ставку
+        while betPlayer2 > depositPlayer2:
+            betPlayer2 = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))
+
+        print(namePlayer1)
+        guessPlayer1 = int(input("Please, enter number from 2 to 12: "))  #Игрок №1 загадывает число
+
+        # Проверка введенных данных игроком №1
+        while guessPlayer1 < 1 or guessPlayer1 > 13:
+            guessPlayer1 = int(input("Your number is not correct. Please, enter number from 2 to 12: "))
+
+        print(namePlayer1)
+        guessPlayer2 = int(input("Please, enter number from 2 to 12: "))  # Игрок №2 загадывает число
+
+        # Проверка введенных данных игроком №2
+        while guessPlayer2 < 1 or guessPlayer2 > 13:
+            guessPlayer2 = int(input("Your number is not correct. Please, enter number from 2 to 12: "))
+
+        # Диллер делает бросок
+        print("The dealer makes the throw: ")
+        dise1 = random.randint(1, 6)  # кость 1
+        dise2 = random.randint(1, 6)  # кость 2
+
+        totalScore = dise1 + dise2  # общий счет
+
+        # Если угадал игрок №1 или игрок №2
+        if guessPlayer1 == totalScore or guessPlayer2 == totalScore:
+            print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore)
+            if guessPlayer1 == totalScore and guessPlayer2 != totalScore:
+                depositPlayer1 = depositPlayer1 + betPlayer1 * 2
+                depositPlayer2 = depositPlayer2 - betPlayer2
+                print(namePlayer1, " winner, but", namePlayer2, " no!\n", namePlayer1, " bankroll = ", depositPlayer1,
+                      namePlayer2, " bankroll = ", depositPlayer2)
+            if guessPlayer1 != totalScore and guessPlayer2 == totalScore:
+                depositPlayer1 = depositPlayer1 - betPlayer1
+                depositPlayer2 = depositPlayer2 + betPlayer2 * 2
+                print(namePlayer2, " winner, but", namePlayer1, " no!\n", namePlayer1, " bankroll = ", depositPlayer1,
+                      namePlayer2, " bankroll = ", depositPlayer2)
+        # Если угадали оба
+        elif guessPlayer1 == totalScore and guessPlayer1 == totalScore:
+            depositPlayer1 = depositPlayer1 + betPlayer1 * 2
+            depositPlayer2 = depositPlayer2 + betPlayer2 * 2
+            print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore)
+            print(namePlayer1, " and ", namePlayer2, " winners!\n", namePlayer1, " bankroll = ", depositPlayer1,
+                  namePlayer2, " bankroll = ", depositPlayer2)
+
+        # Если оба не угадали
+        elif guessPlayer1 != totalScore or guessPlayer1 != totalScore:
+            print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore)
+            depositPlayer1 = depositPlayer1 - betPlayer1
+            depositPlayer2 = depositPlayer2 - betPlayer2
+            print(namePlayer1, " and ", namePlayer2, " not guess!\n", namePlayer1, " bankroll = ", depositPlayer1,
+                  namePlayer2, " bankroll = ", depositPlayer2)
+
+        # Продолжаем игру или нет
+        menuChoose = int(input("If you want play, enter - 1. If you want exit game, enter - 0"))
+        if menuChoose == 1:
+            continue
+        elif menuChoose == 0:
+            break
