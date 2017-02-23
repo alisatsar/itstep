@@ -1,6 +1,4 @@
-1.Более сложный вариант!
-#Допишите программу Кости таким образом, чтобы можно было играть с компьютером  или с другим игроком в кости, при этом
-# в начале игры был выбор с кем играть - компьютер или партнер.
+#Игра кости
 
 #добавляем рандом
 import random
@@ -8,29 +6,28 @@ import random
 print("Welcome to casino!\n")
 
 # Предложение выбора режима игры
-chooseOpponent = input("Please, choose opponent: D - play with dealer, C - computer, A - another player, \n")
+chooseOpponent = input("Please, choose opponent: D - play with dealer, C - computer, A - another player: \n")
 
 # Играет один с диллером
-if chooseOpponent == 'D':
-    deposit = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
-    bankroll = deposit
+if chooseOpponent == 'D' or 'd':
+    bankroll = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
     menuChoose = 1
 
     while menuChoose == 1:
         if bankroll == 0:
             addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
             if addDeposit == 1:
-                deposit = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
-                bankroll = deposit
+                bankroll = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
             else:
                 break
 
         bet = int(input("Please, enter your bet: "))  # Игрок делает ставку
         # Проверка рентабельносити ставки
         while bet > bankroll:
+            print("Your bankroll: ", bankroll)
             bet = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))  # Игрок делает ставку
 
-        guessNumber = int(input("Please, enter number from 2 to 12:"))  # Игрок загадывает число
+        guessNumber = int(input("Please, enter number from 2 to 12: "))  # Игрок загадывает число
 
         # Проверка введеннох данных игроком
         while guessNumber < 1 or guessNumber > 13:
@@ -54,15 +51,14 @@ if chooseOpponent == 'D':
                   "\nYou are not guess!\nYour bankroll = ", bankroll)
 
         #Продолжаем игру или нет
-        menuChoose = int(input("If you want play, enter - 1. If you want exit game, enter - 0"))
+        menuChoose = int(input("If you want play, enter - 1. If you want exit game, enter - 0: "))
         if menuChoose == 1:
             continue
         elif menuChoose == 0:
             break
 
-
 #Играет с компьютером
-if chooseOpponent == 'C':
+if chooseOpponent == 'C' or 'c':
     deposit = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
     bankroll = deposit
     menuChoose = 1
@@ -70,14 +66,14 @@ if chooseOpponent == 'C':
 
     while menuChoose == 1:
         if bankroll == 0:
-            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
+            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No: "))
             if addDeposit == 1:
                 bankroll = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
             else:
                 break
 
         if bankrollComputer == 0:
-            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
+            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No: "))
             if addDeposit == 1:
                 bankrollComputer = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
             else:
@@ -86,11 +82,12 @@ if chooseOpponent == 'C':
         betUser = int(input("Please, enter your bet: "))  # Пользователь делает ставку
         # Проверка рентабельносити ставки
         while betUser > bankroll:
+            print("Your bankroll: ", bankroll)
             betUser = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))  # Игрок делает ставку
 
         betComputer = random.randint(1, bankrollComputer)  # Компютер делает ставку
 
-        guessNumberUser = int(input("Please, enter number from 2 to 12:"))  # Пользователь загадывает число
+        guessNumberUser = int(input("Please, enter number from 2 to 12: "))  # Пользователь загадывает число
         print("Computer deposit: ", bankrollComputer)
 
         # Проверка введеннох данных пользователем
@@ -138,58 +135,54 @@ if chooseOpponent == 'C':
                       "Computer bankroll = ", bankrollComputer)
 
         # Продолжаем игру или нет
-        menuChoose = int(input("If you want play, enter - 1. If you want exit game, enter - 0"))
+        menuChoose = int(input("If you want play, enter - 1. If you want exit game, enter - 0: "))
         if menuChoose == 1:
             continue
         elif menuChoose == 0:
             break
 
 #Игрок играет с другим игроком
-if chooseOpponent == 'A':
+if chooseOpponent == 'A' or 'a':
     menuChoose = 1
 
     namePlayer1 = input("What is your name player 1: ")
     namePlayer2 = input("What is your name player 2: ")
 
-    print(namePlayer1)
-    depositPlayer1 = int(input("Please, enter your deposit: ")) # Игрок №1 вносит депозит
-    print(namePlayer2)
-    depositPlayer2 = int(input("Please, enter your deposit: "))  # Игрок №2 вносит депозит
+    depositPlayer1 = int(input("%s, please enter your deposit: " %namePlayer1)) # Игрок №1 вносит депозит
+    depositPlayer2 = int(input("%s, please enter your deposit: " %namePlayer2))  # Игрок №2 вносит депозит
 
     while menuChoose == 1:
         if depositPlayer1 == 0:
-            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
+            addDeposit = int(input("%s, you want to replenish your Deposit? 1 - Yes, 2 - No" %namePlayer1))
             if addDeposit == 1:
                 depositPlayer1 = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
             else:
                 break
 
         if depositPlayer2 == 0:
-            addDeposit = int(input("You want to replenish your Deposit? 1 - Yes, 2 - No"))
+            addDeposit = int(input("%s, you want to replenish your Deposit? 1 - Yes, 2 - No" %namePlayer2))
             if addDeposit == 1:
                 depositPlayer2 = int(input("Please, enter your deposit: "))  # Игрок вносит депозит
             else:
                 break
 
-        print(namePlayer1)
-        betPlayer1 = int(input("Please, enter your bet: "))  #Игрок №1 делает ставку делает ставку
+        betPlayer1 = int(input("%s, please enter your bet: " %namePlayer1))  #Игрок №1 делает ставку делает ставку
         while betPlayer1 > depositPlayer1:
+            print(namePlayer1, ", your bankroll: ", depositPlayer1)
             betPlayer1 = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))
 
-        print(namePlayer2)
-        betPlayer2 = int(input("Please, enter your bet: "))  # Игрок №2 делает ставку делает ставку
+        betPlayer2 = int(input("%s, please enter your bet: " %namePlayer2))  # Игрок №2 делает ставку делает ставку
         while betPlayer2 > depositPlayer2:
+            print(namePlayer2, ", your bankroll: ", depositPlayer2)
             betPlayer2 = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))
 
-        print(namePlayer1)
-        guessPlayer1 = int(input("Please, enter number from 2 to 12: "))  #Игрок №1 загадывает число
+        guessPlayer1 = int(input("%s, please enter number from 2 to 12: " %namePlayer1))  #Игрок №1 загадывает число
 
         # Проверка введенных данных игроком №1
         while guessPlayer1 < 1 or guessPlayer1 > 13:
             guessPlayer1 = int(input("Your number is not correct. Please, enter number from 2 to 12: "))
 
-        print(namePlayer1)
-        guessPlayer2 = int(input("Please, enter number from 2 to 12: "))  # Игрок №2 загадывает число
+        guessPlayer2 = int(input("%s, please enter number from 2 to 12: " %namePlayer2))  # Игрок №2 загадывает число
 
         # Проверка введенных данных игроком №2
         while guessPlayer2 < 1 or guessPlayer2 > 13:
@@ -206,19 +199,19 @@ if chooseOpponent == 'A':
         if guessPlayer1 == totalScore or guessPlayer2 == totalScore:
             print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore)
             if guessPlayer1 == totalScore and guessPlayer2 != totalScore:
-                depositPlayer1 = depositPlayer1 + betPlayer1 * 2
+                depositPlayer1 = (depositPlayer1 - betPlayer1) + betPlayer1 * 2
                 depositPlayer2 = depositPlayer2 - betPlayer2
                 print(namePlayer1, " winner, but", namePlayer2, " no!\n", namePlayer1, " bankroll = ", depositPlayer1,
                       namePlayer2, " bankroll = ", depositPlayer2)
             if guessPlayer1 != totalScore and guessPlayer2 == totalScore:
                 depositPlayer1 = depositPlayer1 - betPlayer1
-                depositPlayer2 = depositPlayer2 + betPlayer2 * 2
+                depositPlayer2 = (depositPlayer2 - betPlayer2) + betPlayer2 * 2
                 print(namePlayer2, " winner, but", namePlayer1, " no!\n", namePlayer1, " bankroll = ", depositPlayer1,
                       namePlayer2, " bankroll = ", depositPlayer2)
         # Если угадали оба
         elif guessPlayer1 == totalScore and guessPlayer1 == totalScore:
-            depositPlayer1 = depositPlayer1 + betPlayer1 * 2
-            depositPlayer2 = depositPlayer2 + betPlayer2 * 2
+            depositPlayer1 = (depositPlayer1 - betPlayer1) + betPlayer1 * 2
+            depositPlayer2 = (depositPlayer2 - betPlayer2) + betPlayer2 * 2
             print("Dise №1 ", dise1, "\nDise №2 ", dise2, "\nDealer total score: ", totalScore)
             print(namePlayer1, " and ", namePlayer2, " winners!\n", namePlayer1, " bankroll = ", depositPlayer1,
                   namePlayer2, " bankroll = ", depositPlayer2)
@@ -232,8 +225,10 @@ if chooseOpponent == 'A':
                   namePlayer2, " bankroll = ", depositPlayer2)
 
         # Продолжаем игру или нет
-        menuChoose = int(input("If you want play, enter - 1. If you want exit game, enter - 0"))
+        menuChoose = int(input("If you want play, enter - 1. If you want exit game, enter - 0: "))
         if menuChoose == 1:
             continue
         elif menuChoose == 0:
             break
+
+input("Press enter for continue...")
