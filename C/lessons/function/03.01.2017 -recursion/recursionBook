@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <locale.h>
+
+int fact(int num);
+
+int main()
+{
+	setlocale(LC_ALL, "russian");
+	
+	int num;
+
+	printf("Эта программа вычистляет факториалы.\n");
+	printf("Введите значение от 0 до 12\n");
+	scanf("%i", &num);
+
+	printf("Цикл: факториал %i = %i\n", num, fact(num));
+	printf("Рекурсия: факториала %i = %i\n", num, rfact(num));
+	
+}
+
+int fact(int num)
+{
+	long result = 1;
+
+	for (int i = 1; num > 1; num--)
+	{
+		result *= num;
+	}
+	return result;
+}
+
+int rfact(int num)
+{
+	long result = 1;
+	if (num > 0)
+	{
+		result = num * rfact(num - 1);
+	}
+	else
+	{
+		result = 1;
+	}
+		
+	return result;
+}
