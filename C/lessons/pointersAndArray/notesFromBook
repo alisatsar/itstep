@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+#define SIZE 10
+
+long sumA(int* start, int* end);
+
+int main()
+{
+	int array[SIZE] = { 2, 4, 45, 34, 35, 65, 43, 65, 43, 42 };
+
+	long answer = sumA(array, array + SIZE);
+	
+	printf("Common sum of elements array = %ld\n", answer);
+}
+
+long sumA(int* start, int* end)
+{
+	int total = 0;
+
+	while (start < end)
+	{
+		total += *start; // total += *start++
+		start++;
+	}
+	return total;
+}
