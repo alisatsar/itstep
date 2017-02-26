@@ -24,3 +24,36 @@ long sumA(int* start, int* end)
 	}
 	return total;
 }
+
+
+#include <stdio.h>
+#include <locale.h>
+
+int main()
+{
+	setlocale(LC_ALL, "russian");
+	int array[5] = { 100, 200, 300, 400, 500 };
+
+	int* p0 = array;
+	int* p2 = &array[2];
+
+	printf("значение указателя, разыменованный указатель, адрес указателя\n");
+	printf("p0 = %p, *p0 = %i, &p0 = %p\n", p0, *p0, &p0);
+
+	int* p3 = p0 + 4;
+	printf("p0 + 4 = %p; *(p0 + 3) = %i\n", p0 + 4, *(p0 + 3));
+
+	p0++;	//инкрементирование указателя
+	printf("p0 = %p, *p0 = %i, &p0 = %p\n", p0, *p0, &p0);
+
+	p2--;	//денкрементирование указателя
+	printf("p2 = %p, *p2 = %i, &p2 = %p\n", p2, *p2, &p2);
+
+	p0--;
+	p2++;
+	//вычитание одного указателя из другого
+	printf("p2 = %p, p0 = %p, p2 - p0 = %td\n", p2, p0, p2 - p0);
+
+	//вычитание целого значения из указателя
+	printf("p3 = %p, p3 - 2 = %p\n", p3, p3 - 2);
+}
