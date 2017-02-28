@@ -1,0 +1,18 @@
+"""5. Дано несколько чисел. Вычислите их сумму. Сначала вводите количество чисел N, затем вводится ровно
+N целых чисел. Какое наименьшее число переменных нужно для решения этой задачи?"""
+
+import random
+
+counterNumbers = int(input("Please enter the number of integers you wish to calculate: "))
+sum = 0
+print("Random numbers: ")
+#Забиваем рандомные числа от 0 до 10, выводим их на экран
+for i in range(counterNumbers):
+    i = random.randint(0,10)
+    print(i, end = " ")
+    sum += i    #Сумммируем рандомные числа
+
+print("\nSum of numbers = ", sum)
+print("\nIn this progrann has been used two variable")
+
+input("\nPress enter to continue...")
