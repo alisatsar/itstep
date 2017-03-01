@@ -22,3 +22,26 @@ int main()
 	if (allDays == 0)
 		printf("The date not enter\n");
 }
+#include <stdio.h>
+#define SPACE ' '
+
+int main()
+{
+	char ch;
+	ch = getchar();		//читать символ
+	//пока не встретиться \n можно написать так while ((ch = getchar() )!= '\n')
+	while (ch != '\n')		
+	{
+		if (ch == SPACE)
+		{
+			putchar(ch);
+		}
+		else
+		{
+			putchar(ch + 1); //вывести следующий символ
+		}
+		ch = getchar();
+	}
+	putchar(ch);
+}
+
