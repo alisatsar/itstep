@@ -12,3 +12,13 @@ fractionalPart = round(fractionalPart, int(counterNumber))
 
 finalNumber = fractionalPart * (10 ** (counterNumber -  counterNumberInt - 1))
 print(int(finalNumber))
+
+
+#4. Дано положительное действительное число X. Выведите его первую цифру после десятичной точки.
+
+userNumber = float(input("Please, enter your float number\n"))
+
+fractionalPart = userNumber - int(userNumber)
+
+finalNumber = fractionalPart * 10
+print(int(finalNumber))
