@@ -1,0 +1,32 @@
+/*#include <stdio.h>
+
+#define MSG "I'm is char string constant"
+#define MAXLENGTH 81
+
+int main()
+{
+	char words[MAXLENGTH] = "I'm string in array";
+	const char* pWords = "this is my pointer";
+	puts("this is a few strings");
+	puts(MSG); // функция вывода, автоматически добавляет \n к строке
+	puts(words);
+	puts(pWords);
+	words[14] = 'a';
+	puts(words);
+}*/
+
+#include <stdio.h>
+
+#define MSG "I'm special"
+
+int main()
+{
+	char ar[] = MSG;
+	const char* pt = MSG;
+	
+	printf("address\"I'm special.\": %p, \n", "I'm special.");
+	printf("			address ar: %p\n", ar);
+	printf("			address pt : %p\n", pt);
+	printf("			address MSG : %p\n", MSG);
+	printf("address\"I'm special.\": %p \n", "I'm special.");
+}
