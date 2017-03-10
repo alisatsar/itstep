@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+/*int main()
+{
+	//char str[20];
+
+	str[0] = 'H';
+	str[1] = 'e';
+	str[2] = 'l';
+	str[3] = 'l';
+	str[4] = 'o';
+	str[5] = '0';
+
+	//char str[20] = { 'H', 'e', 'l', 'l', 'o', '0' };
+	char str[20] = "Hello";
+	int lenght = sizeof (str) / sizeof (char);
+	printf("%s", str);
+
+	scanf("%s", str);
+}*/
+
+int main()
+{
+	char str[1024];
+	printf("Enter your text\n");
+	//fgets(char* str, int str, File* stream);
+	fgets(str, 1024, stdin); //scanf("%s", str);
+	int len = lenght(str); 
+
+	printf("%i\n", len);
+
+	int space = wordCount(str);
+
+	printf("%i\n", space);
+}
+
+int lenght(char* str)
+{
+	int count = 0;
+	do{
+		count++;
+	} while (str[count] != 0);
+
+	return count - 1;
+}
+
+int wordCount(char* str)
+{
+	int count = 0;
+	int i = 0;
+
+	while (str[i++] != 0)
+	{
+		if (str[i] == ' ' && str[i + 1] != ' ' && str[i + 1] != '\n')
+		{
+			count++;
+		};
+	}
+	return count + 1;
+}
