@@ -8,41 +8,53 @@ menuChoose = 1
 
 mass = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
 
-mass2 = mass * 24
-random.shuffle(mass2)
-#print(mass2)
+massAfterShuffle = mass * 24
+random.shuffle(massAfterShuffle)
+print(massAfterShuffle)
 
 def converCard(card):
     if (card == 'J' or card == 'Q' or card == 'K'):
         card = int(10)
-        return card
     if (card == 'A'):
-        card = {"value": [1, 11]}
-        return card
+        card = 11
+    return card
 
-#раздача карт
-def giveCard (mass2):
-    playerCard1 = mass2[0]
-    mass2.pop(0)
-    dealerCard1 = mass2[0]
-    mass2.pop(0)
-    playerCard2 = mass2[0]
-    mass2.pop(0)
+#раздача карт игроку
+def giveCardPlayer (massAfterShuffle):
+    playerCard1 = massAfterShuffle[0]
+    massAfterShuffle.pop(0)
+    playerCard2 = massAfterShuffle[1]
+    massAfterShuffle.pop(1)
     print("You have card: ", playerCard1, playerCard2)
+    сardPlayer = [playerCard1, playerCard2]
+    return сardPlayer
+
+#раздача карт дилеру
+def giveCardDealer (massAfterShuffle):
+    dealerCard1 = massAfterShuffle[0]
+    massAfterShuffle.pop(0)
     print("Dealer have card: ", dealerCard1)
-    return playerCard1, dealerCard1, playerCard2
+    cardDealer = [dealerCard1]
+    return cardDealer
 
 #подсчет карт
-def countScore(t):
-    playerCard1 = t(0)
-    playerCard1 = converCard(playerCard1)
-    playerCard2 = t(2)
-    playerCard2 = converCard(playerCard2)
-    dealerCard1 = t(1)
-    dealerCard1 = converCard(dealerCard1)
-    playerScore = playerCard1 + playerCard2
-    dealerScore = dealerCard1
-    return playerScore, dealerScore
+def countScore(cardForScore):
+    Score = 0
+    i = 0
+    count = len(cardForScore)
+    while i < count:
+        cardForScore[i] = converCard(cardForScore[i])
+        Score += cardForScore[i]
+        i = i + 1
+    return int(Score)
+
+def forPrintList(сard):
+    i = 0
+    count = len(сard)
+    while i < count:
+        forPrint[i] = сard[i]
+        i = i + 1
+        return forPrint
 
 while menuChoose == 1:
     bet = int(input("Please, enter your bet: "))  # Игрок делает ставку
@@ -52,13 +64,13 @@ while menuChoose == 1:
         print("Your bankroll: ", bankroll)
         bet = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))  # Игрок делает ставку
 
-    t = giveCard(mass2)
-    countScore(t)
-    playerScore = int(t[0])
-    dealerScore = t[1]
-
+    сardPlayer = giveCardPlayer(massAfterShuffle)
+    forPrintPlayer = forPrintList(сardPlayer)
+    playerScore = countScore(сardPlayer)
     print(playerScore)
-    print(dealerScore)
+    cardDealer = giveCardDealer (massAfterShuffle)
+    forPrintDealer = cardDealer
+    dealerScore = countScore(cardDealer)
 
     playerChoose = 1
     dealerHave = 1
@@ -66,11 +78,12 @@ while menuChoose == 1:
     while playerChoose != "S":
         playerChoose = input("Please, enter your move: 'S' - stand, 'H' - hit me\n")
         if playerChoose == 'H':
-            cardHit = mass2[0]
-            mass2.pop(0)
-            print("You have card: ", cardHit)
-            cardHit = converCard(cardHit)
-            playerScore = int(playerScore + cardHit)
+            cardHit = massAfterShuffle[0]
+            massAfterShuffle.pop(0)
+            сardPlayer.append(cardHit)
+            forPrintPlayer.append(cardHit)
+            print("You have card: ", forPrintPlayer)
+            playerScore = countScore(сardPlayer)
             if (playerScore >= 22):
                 print("Your score: ", playerScore, "Too much. You lose\n")
                 dealerHave = 0
@@ -82,11 +95,12 @@ while menuChoose == 1:
                 continue
 
     while dealerHave == 1 and dealerScore < 17:
-        cardDealer = mass2[0]
-        print("The dealer takes a card: ", cardDealer)
-        mass2.pop(0)
-        cardDealer = int(converCard(cardDealer))
-        dealerScore = dealerScore + cardDealer
+        card = massAfterShuffle[0]
+        massAfterShuffle.pop(0)
+        cardDealer.append(card)
+        forPrintDealer.append(card)
+        print("The dealer takes a card: ", forPrintDealer)
+        dealerScore = countScore(cardDealer)
         print("Dealer score: ", dealerScore)
 
     if dealerScore > 21:
