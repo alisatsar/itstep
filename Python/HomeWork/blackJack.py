@@ -1,4 +1,13 @@
 import random
+import pygame
+pygame.init()
+
+WIN_WIDTH = 800 #Ширина создаваемого окна
+WIN_HEIGHT = 640 # Высота
+DISPLAY = (WIN_WIDTH, WIN_HEIGHT) # Группируем ширину и высоту в одну переменную
+BACKGROUND_COLOR = "#004400"
+
+gameDisplay = pygame.display.set_mode((DISPLAY, BACKGROUND_COLOR))
 
 print("Welcome to Black Jack!\n")
 
@@ -19,23 +28,11 @@ def converCard(card):
         card = 11
     return card
 
-#раздача карт игроку
-def giveCardPlayer (massAfterShuffle):
-    playerCard1 = massAfterShuffle[0]
+#раздача карт
+def giveCard (massAfterShuffle):
+    сard = massAfterShuffle[0]
     massAfterShuffle.pop(0)
-    playerCard2 = massAfterShuffle[1]
-    massAfterShuffle.pop(1)
-    print("You have card: ", playerCard1, playerCard2)
-    сardPlayer = [playerCard1, playerCard2]
-    return сardPlayer
-
-#раздача карт дилеру
-def giveCardDealer (massAfterShuffle):
-    dealerCard1 = massAfterShuffle[0]
-    massAfterShuffle.pop(0)
-    print("Dealer have card: ", dealerCard1)
-    cardDealer = [dealerCard1]
-    return cardDealer
+    return сard
 
 #подсчет карт
 def countScore(cardForScore):
@@ -51,10 +48,11 @@ def countScore(cardForScore):
 def forPrintList(сard):
     i = 0
     count = len(сard)
+    forPrint = [0]
     while i < count:
         forPrint[i] = сard[i]
         i = i + 1
-        return forPrint
+    return forPrint
 
 while menuChoose == 1:
     bet = int(input("Please, enter your bet: "))  # Игрок делает ставку
@@ -64,13 +62,23 @@ while menuChoose == 1:
         print("Your bankroll: ", bankroll)
         bet = int(input("Sorry, your bet more bankroll. Please, enter your bet: "))  # Игрок делает ставку
 
-    сardPlayer = giveCardPlayer(massAfterShuffle)
-    forPrintPlayer = forPrintList(сardPlayer)
-    playerScore = countScore(сardPlayer)
-    print(playerScore)
-    cardDealer = giveCardDealer (massAfterShuffle)
-    forPrintDealer = cardDealer
+    #Раздача карт
+    card1 = giveCard(massAfterShuffle)
+    cardPlayer = [card1]
+    forPrintPlayer = forPrintList(cardPlayer)
+    card2 = giveCard(massAfterShuffle)
+    card3 = giveCard(massAfterShuffle)
+    cardPlayer.append(card3)
+    print("You have card: ")
+    print(cardPlayer)
+    forPrintPlayer.append(card3)
+    cardDealer = [card2]
+    print("Dealer have card: ", cardDealer)
+    playerScore = countScore(cardPlayer)
+    print("Your score is: ", playerScore)
+    forPrintDealer = forPrintList(cardDealer)
     dealerScore = countScore(cardDealer)
+    print("Dealer score is: ", dealerScore)
 
     playerChoose = 1
     dealerHave = 1
@@ -80,10 +88,10 @@ while menuChoose == 1:
         if playerChoose == 'H':
             cardHit = massAfterShuffle[0]
             massAfterShuffle.pop(0)
-            сardPlayer.append(cardHit)
+            cardPlayer.append(cardHit)
             forPrintPlayer.append(cardHit)
             print("You have card: ", forPrintPlayer)
-            playerScore = countScore(сardPlayer)
+            playerScore = countScore(cardPlayer)
             if (playerScore >= 22):
                 print("Your score: ", playerScore, "Too much. You lose\n")
                 dealerHave = 0
@@ -103,12 +111,19 @@ while menuChoose == 1:
         dealerScore = countScore(cardDealer)
         print("Dealer score: ", dealerScore)
 
+    #Подсчет ставок
     if dealerScore > 21:
         bankroll += bet
+        print("You win! ", bet)
     elif dealerScore > playerScore and dealerScore <= 21:
         bankroll -= bet
+        print("You lose! ", bet)
     elif dealerScore > playerScore:
         bankroll -= bet
+        print("You lose! ", bet)
+    elif dealerScore < playerScore:
+        bankroll += bet
+        print("You win! ", bet)
     elif dealerScore == playerScore:
         bankroll = bankroll
 
@@ -119,3 +134,5 @@ while menuChoose == 1:
         continue
     elif menuChoose == 0:
         break
+
+
