@@ -15,7 +15,7 @@ int main()
 	puts(words);
 }*/
 
-#include <stdio.h>
+/*#include <stdio.h>
 
 #define MSG "I'm special"
 
@@ -29,4 +29,63 @@ int main()
 	printf("			address pt : %p\n", pt);
 	printf("			address MSG : %p\n", MSG);
 	printf("address\"I'm special.\": %p \n", "I'm special.");
-}
+}*/
+
+/*#include <stdio.h>
+
+int main()
+{
+	char heart[] = "I love Kiril";
+	char const* head = "I love Kiril";
+		
+	for (int i = 0; i < 7; i++)
+	{
+		putchar(*(heart + i));
+	}
+	putchar('\n');
+
+	for (int i = 0; i < 7; i++)
+	{
+		putchar(head[i]);
+	}
+	putchar('\n');
+}*/
+
+/*#include <stdio.h>
+
+#define SLEN 40
+#define LIM 5
+
+int main()
+{
+	char const* mytalents[LIM] = { "sum of numbers quickly",
+		"Multiple of numbers, accurately","data processing",
+		"knowledge of programming language C" };
+	char yourTalents[LIM][SLEN] = { "Going to right", "healthy dream", "Watch TV",
+		"Send mail", "Read of electrons mail" };
+	
+	int i;
+
+	puts("We are compare your talents");
+	printf("%-52s %-25s\n", "My talents", "Your talents");
+	for (int i = 0; i < LIM; i++)
+	{
+		printf("%-52s %-25s", mytalents[i], yourTalents[i]);
+	}
+
+	printf("\nsize my talents: %zd, size your talents: %zd", sizeof(mytalents), sizeof(yourTalents));
+}*/
+
+/*#include <stdio.h>
+
+int main()
+{
+	const char* mesg = "Don't allow to confuse yourself";
+	const char* copy;
+
+	copy = mesg;
+	printf("%s\n", copy);
+	printf("mesg = %s; &mesg = %p; value = %p\n", mesg, &mesg, mesg);
+	printf("copy = %s; &copy = %p; value = %p\n", copy, &copy, copy);
+
+}*/
