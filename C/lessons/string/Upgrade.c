@@ -25,11 +25,12 @@ int main()
 	int phone = 0;
 	
 	scanf("%i", &menuAddress);
-
-	/*do {
-		menuAddress = getchar();
-	} while (menuAddress != '\n' && menuAddress != EOF);*/
-	getUser("name", addressBook[0][user]);
+	
+	char tmp;
+	do {
+		tmp = getchar();
+	} while (tmp != '\n' && tmp != EOF);
+	
 	switch (menuAddress)
 	{
 	case AddUser:
