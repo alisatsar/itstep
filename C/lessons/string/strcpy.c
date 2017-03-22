@@ -57,3 +57,24 @@ char* s_gets(char* st, int n)
 	}
 	return retVal;
 }
+
+#include <stdio.h>
+#include <string.h>
+
+#define SIZE 40
+#define WORDS "worst"
+
+int main()
+{
+	const char* orig = WORDS;
+	char copy[SIZE] = "Just you are best";
+
+	char* ps;
+
+	puts(orig);
+	puts(copy);
+	ps = strcpy(copy + 13, orig);
+	puts(copy);
+	puts(ps);
+}
+
