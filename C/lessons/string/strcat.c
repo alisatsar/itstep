@@ -13,7 +13,8 @@ int main()
 	puts("What is your favorite flower?");
 	if (s_gets(flower, SIZE))
 	{
-		strcat(flower, addon);
+		strcat(flower, addon);  //копирует addon в flower, дописывая flower, тем самым изменяя flower. 
+		//принимает и возвращает char*. возможно переполнения соседних ячеек памяти
 		puts(flower);
 		puts(addon);
 	}
