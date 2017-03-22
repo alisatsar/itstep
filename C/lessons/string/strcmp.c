@@ -35,3 +35,27 @@ void s_gets(char* string, int size)
 		string++;
 	}
 }
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+	printf("strcmp(\"A\", \"A\") return "); 
+	printf("%d\n", strcmp("A", "A")); 	//возвращает 0
+
+	printf("strcmp(\"A\", \"B\") return ");
+	printf("%d\n", strcmp("A", "B")); 	//возвращает -1
+
+	printf("strcmp(\"B\", \"A\") return ");
+	printf("%d\n", strcmp("B", "A"));	//возвращает 1
+
+	printf("strcmp(\"C\", \"A\") return ");
+	printf("%d\n", strcmp("C", "A"));	//возвращает 1
+
+	printf("strcmp(\"Z\", \"a\") return ");
+	printf("%d\n", strcmp("Z", "a"));	//возвращает -1
+
+	printf("strcmp(\"apples\", \"apple\") return ");
+	printf("%d\n", strcmp("apples", "apple"));	//возвращает 1
+}
