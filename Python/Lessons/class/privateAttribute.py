@@ -53,3 +53,17 @@ Critter.status()
 
 print("\nAccessing the class attribute through an object:", end = ' ')
 print(crit1.total)
+
+
+@property #декоратор для 
+    def mood(self):
+        unhappiness = self.hunger + self.boredom
+        if unhappiness < 5:
+            m = "happy"
+        elif 5 <= unhappiness <= 10:
+            m = "okay"
+        elif 11 <= unhappiness <= 15:
+            m = "frustrated"
+        else:
+            m = "mad"
+        return m
