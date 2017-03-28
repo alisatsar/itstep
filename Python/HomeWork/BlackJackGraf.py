@@ -28,3 +28,40 @@ while done == True:
 
     window.blit(window, (0, 0))  # отображаем игровой экран скрин
     pygame.display.flip()  # показать игровое окно
+
+import random
+
+#заполняем калоду карт, которая является двухмерным массивом вида [карта, масть, значение]
+cards = []
+i = 0
+cardSuit = "s"
+card = 1
+
+while i < 52:
+    if i == 13:
+        cardSuit = "h"
+        card = 1
+    elif i == 26:
+        cardSuit = "c"
+        card = 1
+    elif i == 39:
+        cardSuit = "d"
+        card = 1
+    if card == 1:
+        cards.append(["A", cardSuit, [1, 11]])
+    elif card == 10:
+        cards.append (["T", cardSuit, card])
+    elif card == 11:
+        cards.append(["J", cardSuit, 10])
+    elif card == 12:
+        cards.append(["Q", cardSuit, 10])
+    elif card == 13:
+        cards.append(["K", cardSuit, 10])
+    else:
+        cards.append([card, cardSuit, card])
+    card += 1
+    i += 1
+
+cardsAfterShuffle = cards * 6
+random.shuffle(cardsAfterShuffle)
+print(cardsAfterShuffle)
