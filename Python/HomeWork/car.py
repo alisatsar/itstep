@@ -7,7 +7,6 @@
 4. Остановка двигателя
 5. Включение фар
 6. Открытие и закрытие дверей
-
 Функциональность Автомобиля должна соответствовать логике, т.е. например, нельзя завести автомобиль два раза подрят.
 Нельзя начать езду если нажат тормоз и так далее."""
 
@@ -24,42 +23,64 @@ class Car ():
         else:
             print("Your door is closet")
 
-    def StartMove(self):
-        if (self.door == 1):
-            if (self.engineCondition == 1):
-                print("Your engine is start")
-            else:
-                print("Start the engine")
+    def StartEngine(self):
+        if (self.engineCondition == 1):
+            print("Your engine is start")
         else:
-            print("You are don't start move")
+            print("The engine is not start")
+
+    def StartMove(self):
+        if (self.movement == 1):
+            print("You move")
+        else:
+            print("You not move!")
+
+    def StopCar(self):
+        if (self.brake == 1):
+            print("You are to stop the car")
+        else:
+            print("Your car still move!")
 
 
 print("You are stay near your car!\n")
-print("Enter what you want to do:\n1 - Go to door\n2 - Start to engine\n3 - Go\n4 - Stop\n")
 
 doorCondition = False
 brakeCondition = False
 engineCondition = False
 movement = False
 
-car = Car(movement, brakeCondition, engineCondition, doorCondition)
-
-userChoose = int(input())
-if (userChoose == 1):
-    print("The door of your car is closed!\n")
-    doorCondition = int(input("Please, enter 1 to open door, or 0\n"))
-    car.Doors()
-
-
-print("If you want to go, then start the engine!\n")
-engineCondition = int(input("Please, enter 1 to start engine, or 0 to stop\n"))
-
-print("If you want to stop, then press the brake!\n")
-brakeCondition = int(input("Please, enter 1 to press the brake\n"))
-
-print("If you want to move, then press the start movement!\n")
-movement = int(input("Please, enter 1 to press the movement\n"))
-
-
-car.Doors()
-car.StartMove()
+userChoose = 1
+while (userChoose != 0):
+    print("Enter what you want to do:\n1 - Go to door\n2 - Start to engine\n3 - Go\n4 - Stop\n5 - Exit from program\n")
+    userChoose = int(input())
+    if (userChoose == 1):
+        print("The door of your car is closed!\n")
+        doorCondition = int(input("Please, enter 1 to open door, or 0 to not open.\n"))
+        car = Car(movement, brakeCondition, engineCondition, doorCondition)
+        car.Doors()
+    if (userChoose == 2):
+        if (doorCondition):
+            print("If you =want to go, then start the engine!\n")
+            engineCondition = int(input("Please, enter 1 to start engine, or 0 to not start\n"))
+            car = Car(movement, brakeCondition, engineCondition, doorCondition)
+            car.StartEngine()
+        else:
+            print("The door of your car is closed!\n")
+    if (userChoose == 3):
+        if (engineCondition):
+            print("Now you make start to go!\n")
+            movement = int(input("Enter 1 to start, or 0 to not start\n"))
+            car = Car(movement, brakeCondition, engineCondition, doorCondition)
+            car.StartMove()
+        else:
+            print("The engine is not start")
+    if (userChoose == 4):
+        if (movement):
+            print("You want to stop the car?\n")
+            movement = int(input("Enter 1 to stop, or 0 to not stop\n"))
+            car = Car(movement, brakeCondition, engineCondition, doorCondition)
+            car.StopCar()
+        else:
+            print("The engine is not start")
+    if (userChoose == 5):
+        break
