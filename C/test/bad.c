@@ -58,7 +58,7 @@ int main()
 	while (i < SIZE_ARRAY)
 	{
 		car[i] = malloc(structSize);
-		sgets(car[i]->Brand, 30);
+		sgets((*car[i]).Brand, 30);
 	}
 
 }
