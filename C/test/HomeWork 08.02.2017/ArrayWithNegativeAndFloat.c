@@ -10,12 +10,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define COUNT_ARRAY 10
+#define ARRAY_SIZE 10
 
 void fillArray(float array[], int count);
-void findSumMinus(float array[], int count);
-void findSumWithoutMinMax(float array[], int count);
-void findSumMinusWithoutMinMax(float array[], int count);
+void printArray(float array[], int count);
+int findSumMinus(float array[], int count);
+int findSumWithoutMinMax(float array[], int count);
+itn findSumMinusWithoutMinMax(float array[], int count);
 
 int main()
 {
@@ -23,23 +24,32 @@ int main()
 
 	float array[COUNT_ARRAY];
 
-	fillArray(array, COUNT_ARRAY);
+	printf("Random floating-point number from -10 to 10\n");
+	fillArray(array, ARRAY_SIZE);
+	
+	printArray(array, ARRAY_SIZE);
 
-	findSumMinus(array, COUNT_ARRAY);
-
-	findSumWithoutMinMax(array, COUNT_ARRAY);
-
-	findMultipleEvenNumbers(array, COUNT_ARRAY);
-
-	findSumMinusWithoutMinMax(array, COUNT_ARRAY);
+	int sum = findSumMinus(array, ARRAY_SIZE);
+	printf("The sum of negative values of the array = %.4f\n", sum);
+	sum = findSumWithoutMinMax(array, ARRAY_SIZE);
+	printf("The sum numbers of array without min and max values = %.4f\n", sum);
+	findMultipleEvenNumbers(array, ARRAY_SIZE);
+	findSumMinusWithoutMinMax(array, ARRAY_SIZE);
 }
 
 void fillArray(float array[], int count)
 {
-	printf("Random floating-point number from -10 to 10\n");
 	for (int i = 0; i < count; i++)
 	{
 		array[i] = (rand() % 10 / 1.1 * (-1)) + (rand() % 10);
+		printf("%.4f\n", array[i]);
+	}
+}
+
+void printArray(float array[], int count)
+{
+	for (int i = 0; i < count; i++)
+	{
 		printf("%.4f\n", array[i]);
 	}
 }
@@ -54,7 +64,7 @@ void findSumMinus(float array[], int count)
 			sum = sum + array[i];
 		}
 	}
-	printf("The sum of negative values of the array = %.4f\n", sum);
+	return sum;
 }
 
 void findSumWithoutMinMax(float array[], int count)
@@ -80,10 +90,10 @@ void findSumWithoutMinMax(float array[], int count)
 		}
 		sum = sum + array[i];
 	}
-	printf("The sum numbers of array without min and max values = %.4f\n", sum - min - max);
+	return sum - min - max;
 }
 
-void findMultipleEvenNumbers(float array[], int count)
+int findMultipleEvenNumbers(float array[], int count)
 {
 	long float multiple = 1;
 	for (int i = 0; i < count; i++)
@@ -96,7 +106,7 @@ void findMultipleEvenNumbers(float array[], int count)
 	printf("The multiple of the elements with even numbers = %.4lf\n", multiple);
 }
 
-void findSumMinusWithoutMinMax(float array[], int count)
+int findSumMinusWithoutMinMax(float array[], int count)
 {
 	float minMinus;
 	float maxMinus;
