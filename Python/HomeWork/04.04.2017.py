@@ -22,4 +22,22 @@ else:
     
 
 
-Напишите программу, высчитывающую площадь оклейки обоями комнаты. Объектами являются: стены, потолки, окна и двери.
+
+#Напишите программу, высчитывающую площадь оклейки обоями комнаты. Объектами являются: стены, потолки, окна и двери.
+
+class Wallpaper:
+    def __init__(self, width, height, length):
+        self.width = width
+        self.height = height
+        self.length = length
+        self.square = 2 * self.height * (self.width + self.length)
+        return s
+        
+
+
+width = int(input("Enter the width of wall your room: "))
+height = int(input("Enter the height of wall your room: "))
+length = int(input("Enter the length of your room: "))
+
+wallpaper = Wallpaper(width, height, length)
+squareWithoutDoorsAndWindows = 
