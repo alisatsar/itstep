@@ -4,7 +4,7 @@
  
 struct NumberFlags
 {
-    unsigned char b0 : 1;
+    unsigned char b0 : 1; //выделяй не 8 байт, а один
     unsigned char b1 : 1;
     unsigned char b2 : 1;
     unsigned char b3 : 1;
