@@ -13,14 +13,14 @@ void checkPattern(int array[10], int* last, int* first, int* indexFirst, int* in
 
 int main()
 {
-	int array[10] = {4, 4, 1, 2, 1, 2, 1, 2, 3, 2};
+	int array[10] = { 1, 1, 2, 2, 3, 1, 2, 3, 1, 2 };
 
 	struct Buff buff;
 
 	int indexFirst = 0;
 	int indexLast = 0;
 	int count = 1;
-	
+
 	for (int i = 9; i >= 0; i--)
 	{
 		for (int j = i - 1; j >= 0; j--)
@@ -59,25 +59,18 @@ int main()
 
 void checkPattern(int array[10], int* last, int* first, int* indexFirst, int* indexLast, int* count)
 {
-	for (int i = *indexLast; i >= 0; i = i - 2)
+	for (int j = *indexFirst; j >= 0; j = j-2)
 	{
-		for (int j = i - 1; j >= 0; j--)
+		if (*last == array[j - 1] && *first == array[j - 2])
 		{
-			if (array[i] == array[j - 1] && array[i - 1] == array[j - 2])
-			{
-				*indexLast = i;
-				*indexFirst = j - 2;
-				*count = *count + 1;
-			}
-			else
-			{
-				
-				break;
-			}
+			*indexLast = *indexLast;
+			*indexFirst = j - 2;
+			*count = *count + 1;
 		}
-		if (*count >= i / 2)
+		else
 		{
-			i = i - *count;
+
+			break;
 		}
 	}
 }
