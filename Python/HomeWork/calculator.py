@@ -2,16 +2,18 @@ from tkinter import *
 
 window = Tk()
 
-class Button_number:
-    def __init__(self, value, xpos, ypos):
-        self.value = value
-        self.button = Button(window, text = value, bg='#151515', fg='#00E676', font='helvetica 16')
-        self.button.bind("<Button-1>", self.click)
-        self.button.place(x = 10 + xpos, y = 100 + ypos, width=50, height=50)
+leftOperand = 0
+rightOperand = 0
+movement = 0
 
-    def click (self, event):
-        text.insert(END, self.value)
-
+class Calculate():
+    def __init__(self, numbers):
+        self.total = 0
+        self.current = ""
+        self.new_num = True
+        self.op_pending = False
+        self.op = ""
+        self.eq = False
 
 window.title("Calculator!") #заголовок окна
 
@@ -28,28 +30,43 @@ text.pack()
 background = Frame(window, width = 370, height = 500, bg = "#212121")
 
 #прописываем кнопки
-button1 = Button_number("1", 0, 0)
-button2 = Button_number("2", 70, 0)
-button3 = Button_number("3", 140, 0)
-button4 = Button_number("4", 0, 70)
-button5 = Button_number("5", 70, 70)
-button6 = Button_number("6", 140, 70)
-button7 = Button_number("7", 0, 140)
-button8 = Button_number("8", 70, 140)
-button9 = Button_number("9", 140, 140)
-buttonDot = Button_number(".", 0, 210)
-button0 = Button_number("0", 70, 210)
-buttonDeleteChar = Button_number("<", 140, 210)
+allNumbers = "123456789"
+button = []
+i = 0
+xpos = 0
+ypos = 0
+while (i < 9):
+    if i == 1 or i == 4 or i == 6:
+        xpos = 80
+    elif i == 2 or i == 5 or i == 8:
+        xpos = 150
+    else:
+        xpos = 10
+    if i > 2 and i <= 5:
+        ypos = 170
+    elif i > 5 and i <= 8:
+        ypos = 240
+    else:
+        ypos = 100
+    button.append(Button(window, text = allNumbers[i], bg='#151515', fg='#00E676', font='helvetica 16'))
+    button[i].place(x = xpos, y = ypos, width = 50, height = 50)
+    i = i + 1
 
-buttonPlus = Button_number("+", 230, 0)
-buttonPercent = Button_number("%", 300, 0)
-buttonMinus = Button_number("-", 230, 70)
-buttonDegree = Button_number("x*y", 300, 70)
-buttonMultiple = Button_number("*", 230, 140)
-buttonDivideToX = Button_number("1/x", 300, 140)
-buttonDevide = Button_number("/", 230, 210)
-buttonRoot = Button_number("root", 300, 210)
-buttonEqual = Button_number("=", 300, 280)
+
+button0 = Button(window, text = "0", bg='#151515', fg='#00E676', font='helvetica 16')
+button0.place(x = 80, y = 310, width = 50, height = 50)
+buttonDeleteChar = Button(window, text = "<", bg='#151515', fg='#00E676', font='helvetica 16')
+buttonDeleteChar.place(x = 150, y = 310, width = 50, height = 50)
+buttonPlus = Button(window, text = "+", bg='#151515', fg='#00E676', font='helvetica 16')
+buttonPlus.place(x = 240, y = 100, width = 50, height = 50)
+buttonMinus = Button(window, text = "-", bg='#151515', fg='#00E676', font='helvetica 16')
+buttonMinus.place(x = 240, y = 170, width = 50, height = 50)
+buttonMultiple = Button(window, text = "*", bg='#151515', fg='#00E676', font='helvetica 16')
+buttonMultiple.place(x = 240, y = 240, width = 50, height = 50)
+buttonDivide = Button(window, text = "/", bg='#151515', fg='#00E676', font='helvetica 16')
+buttonDivide.place(x = 240, y = 310, width = 50, height = 50)
+buttonEqual = Button(window, text = "=", bg='#151515', fg='#00E676', font='helvetica 16')
+buttonEqual.place(x = 310, y = 240, width = 50, height = 120)
 
 result = []
 
