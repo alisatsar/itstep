@@ -15,7 +15,7 @@ enum StringPositions
 
 void writeString(char* string, int offset, FILE* f)
 {
-	fseek(f, offset, SEEK_SET);					//перемещение идентификатора(файл; на сколько переместиться; аргумент в fseek(),
+	fseek(f, offset, SEEK_SET);	//перемещение идентификатора(файл; на сколько переместиться; аргумент в fseek(),
  //обозначающий отсчёт с начала файла)
 	fwrite(string, STRING_SIZE, 1, f);			//пишем строку в файл
 }
@@ -35,13 +35,14 @@ int main()
 	if (f == NULL)							// если файл пуст, то нужно записать
 	{
 		// need to write
-		f = fopen("d:\\t.bin", "wb");		//открываем в режиме записи
-		memset(buff, 0, FILE_SIZE);			//заполняем буффер нулями (указатель на объект для заполнения/заполнить байт/количество
+		f = fopen("d:\\t.bin", "wb");	//открываем в режиме записи
+		memset(buff, 0, FILE_SIZE);	//заполняем буффер нулями (указатель на объект для заполнения/заполнить байт/количество
   //байт для заполнения)
-		fwrite(buff, FILE_SIZE, 1, f);		//пишет 1 объект в заданном массиве buff к файлу f (FILE_SIZE - размер объекта, который надо записать)
+		fwrite(buff, FILE_SIZE, 1, f);	//пишет 1 объект в заданном массиве buff к файлу f (FILE_SIZE - размер объекта,
+//который надо записать)
 
-		strcpy(buff, "Alisa");				//копируем из "Alisa" в буффер
-		writeString(buff, FirstNamePosition, f);		//передаем строку byff, позицию заданную в enum, и указатель на файл
+		strcpy(buff, "Alisa");			//копируем из "Alisa" в буффер
+		writeString(buff, FirstNamePosition, f);	//передаем строку byff, позицию заданную в enum, и указатель на файл
 		strcpy(buff, "Tsarova");
 		writeString(buff, LastNamePosition,	f);
 		strcpy(buff, "Aleksandrovna");
