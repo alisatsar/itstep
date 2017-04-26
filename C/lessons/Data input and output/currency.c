@@ -12,10 +12,9 @@ struct Currency
 
 int main()
 {
-	struct Currency* currency = malloc(sizeof(struct Currency));
 	FILE* file = fopen("d:\\db.bin", "rb");
-	struct Currency buff;
-	
+	struct Currency* currency = malloc(sizeof(struct Currency));
+		
 	if (file == NULL)
 	{
 		FILE* file = fopen("d:\\db.bin", "wb");
@@ -24,16 +23,18 @@ int main()
 		currency->BYNtoEUR = 2.0040;
 		currency->EURtoBYN = 2.02;
 		fwrite(currency, sizeof(struct Currency), 1, file);
+		fclose(file);
+		return 0;
 	}
 	else
 	{
 		fseek(file, 0, SEEK_SET);
-		fread(&buff, sizeof(struct Currency), 1, file);
-		printf("BYN to USD: %.2f\n", buff.BYNtoUSD);
-		printf("USD to BYN: %.2f\n", buff.USDtoBYN);
-		printf("BYN to EUR: %.2f\n", buff.BYNtoEUR);
-		printf("EUR to BYN: %.2f\n", buff.EURtoBYN);
+		fread(currency, sizeof(struct Currency), 1, file);
+		printf("BYN to USD: %.2f\n", currency->BYNtoUSD);
+		printf("USD to BYN: %.2f\n", currency->USDtoBYN);
+		printf("BYN to EUR: %.2f\n", currency->BYNtoEUR);
+		printf("EUR to BYN: %.2f\n", currency->EURtoBYN);
 	}
-		
+
 	fclose(file);
 }
