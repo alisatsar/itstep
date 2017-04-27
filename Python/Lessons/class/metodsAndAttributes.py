@@ -88,4 +88,12 @@ john = Person('John Sidorov', job = 'dev', pay = 10000)
 print(ivan)
 print(john)
 
-print(ivan.lastName(), john.lastName())
+print(ivan.lastName())
+
+john.givenRaise(.10)
+
+print(john)
+
+tom = Manager("Tom Jones", 40000)
+tom.giveRaise(.10)
+print(tom)
