@@ -40,3 +40,23 @@ print(s.list)
 
 ___________________________INHERITANCE_______________________________________
 
+class Derived():        #создаем базовый класс
+    def __init__(self, q):
+        self.q = q
+
+class Derived2(Derived):        #создаем подкласс, который будет связан с базовым
+    def Multiple(self):
+        self.q = self.q + 10
+
+s = Derived2(5)         
+s.Multiple()
+print(s.q)
+
+
+class Derived(Base1,Base2,Base3)
+поиск атрибутов происходит следующим образов:
+    
+в Derived;
+в Base1, затем рекурсивно в базовых классах Base1;
+в Base2, затем рекурсивно в базовых классах Base2
+и т.д.
