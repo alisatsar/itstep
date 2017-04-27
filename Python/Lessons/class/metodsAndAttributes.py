@@ -60,3 +60,32 @@ class Derived(Base1,Base2,Base3)
 в Base1, затем рекурсивно в базовых классах Base1;
 в Base2, затем рекурсивно в базовых классах Base2
 и т.д.
+
+_________________________________EXAMPLE_______________________________________
+
+class Person:
+    def __init__(self, name, job = None, pay = 0):
+        self.name = name
+        self.job = job
+        self.pay = pay
+    def lastName(self):
+        return self.name.split()[-1]
+    def givenRaise(self, percent):
+        self.pay = int(self.pay * (1 + percent))
+    def __str__(self):
+        return 'Percon: %s, %s' % (self.name, self.pay)
+
+class Manager(Person):
+    def __init__(self, name, pay):
+        Person.__init__(self, name, 'mgr', pay)
+    def giveRaise(self, percent, bonus = 100):
+        Person.givenRaise(self, percent + bonus)
+
+ivan = Person('Ivan Aleksandrovich Petrov')
+
+john = Person('John Sidorov', job = 'dev', pay = 10000)
+
+print(ivan)
+print(john)
+
+print(ivan.lastName(), john.lastName())
