@@ -1,5 +1,54 @@
+import sys
+from tkinter import*
+widget = Button(None, text = "Hello world", command = sys.exit)
+widget.pack()
+mainloop()
+
+from tkinter import*
+root = Tk()
+Label(root, text = "hello").pack()
+Button(root, text = "Close window", command = root.destroy).pack(side = LEFT, expand = YES)
+#root.destroy закрывает одно окно
+#root.quit закрывает все окна
+root.mainloop()
+
+СОБСТВЕННЫЙ ОБРАБОТЧИК СОБЫТИЙ
+import sys
+from tkinter import*
+
+def quit():
+    print("Hello world")
+    sys.exit()
+
+widget = Button(None, text = "hello world", command = quit)
+widget.pack()
+mainloop()
+
+
+ИСПОЛЬЗОВАНИЕ LAMBDA-ВЫРАЖЕНИЙ
+import sys
+from tkinter import*
+widget = Button(None, text = "hello world",
+                command = (lambda: print("Hello lambda world") or sys.exit()))
+widget.pack()
+mainloop()
+
+
+ССЫЛКА НА ФУНКЦИЮ В ОБРАБОТЧИКЕ СОБЫТИЙ
+from tkinter import*
+
+def handler(a):
+    print(a)
+
+def func():
+    handler("hi")
+
+widget = Button(None, text = "hello world", command = func)  #ссылка на функцию func, a не ее вызов
+widget.pack()
+mainloop()
+_______________________________________________________________
+
 from tkinter import *
- 
 class But_print:
     def __init__(self):
         self.but = Button(root)     #Button(root) встроенный класс
@@ -8,7 +57,6 @@ class But_print:
         self.but.pack()     #встроенный менеджер размещения
     def printer(self,event):
         print ("Как всегда очередной 'Hello World!'")
- 
 root = Tk()
 root.title("Main Window")
 root.geometry("250x250")
