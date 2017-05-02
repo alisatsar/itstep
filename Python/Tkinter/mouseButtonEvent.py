@@ -1,9 +1,24 @@
-from tkinter import *
+import sys
+from tkinter import*
 
+def hello(event):
+    print("Press twice to exit")
+
+def quit(event):
+    print("Hello, i must be going...")
+    sys.exit()
+
+widget = Button(None, text="hello")
+widget.pack()
+widget.bind('<Button-1>', hello)        #привязать обработчик щелчка левая кнопка мыши
+widget.bind('<Double-1>', quit)         #привязать обработчик щелчка левая кнопка мыши двойно щелчок
+mainloop()
+
+_____________________________________________________
+from tkinter import *
 
 def printer(event): #специальный класс, методы которого связывают 
     print("Как всегда очередной 'Hello World!'")
-
 
 root = Tk()
 root.title("Main Window")
