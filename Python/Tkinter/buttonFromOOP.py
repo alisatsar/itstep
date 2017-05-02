@@ -63,6 +63,22 @@ class HelloClass:
 
 HelloClass()
 mainloop()
+
+_____СВЯЗЫВАНИЕ С ПОМОЩЬЮ СПЕЦИАЛЬНОГО МЕТОДА __сall__
+import sys
+from tkinter import*
+
+class HelloClass:
+    def __init__(self):
+        self.msg = 'hello __call__ world'
+
+    def __call__(self):
+        print(self.msg)   
+        sys.exit()
+
+widget = Button(None, text="hello", command=HelloClass())
+widget.pack()
+mainloop()
 _______________________________________________________________
 
 from tkinter import *
