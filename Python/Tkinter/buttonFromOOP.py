@@ -12,7 +12,7 @@ Button(root, text = "Close window", command = root.destroy).pack(side = LEFT, ex
 #root.quit закрывает все окна
 root.mainloop()
 
-СОБСТВЕННЫЙ ОБРАБОТЧИК СОБЫТИЙ
+____СОБСТВЕННЫЙ ОБРАБОТЧИК СОБЫТИЙ
 import sys
 from tkinter import*
 
@@ -25,7 +25,7 @@ widget.pack()
 mainloop()
 
 
-ИСПОЛЬЗОВАНИЕ LAMBDA-ВЫРАЖЕНИЙ
+____ИСПОЛЬЗОВАНИЕ LAMBDA-ВЫРАЖЕНИЙ
 import sys
 from tkinter import*
 widget = Button(None, text = "hello world",
@@ -34,7 +34,7 @@ widget.pack()
 mainloop()
 
 
-ССЫЛКА НА ФУНКЦИЮ В ОБРАБОТЧИКЕ СОБЫТИЙ
+____ССЫЛКА НА ФУНКЦИЮ В ОБРАБОТЧИКЕ СОБЫТИЙ
 from tkinter import*
 
 def handler(a):
@@ -45,6 +45,23 @@ def func():
 
 widget = Button(None, text = "hello world", command = func)  #ссылка на функцию func, a не ее вызов
 widget.pack()
+mainloop()
+
+
+____ИСПОЛЬЗОВАНИЕ КЛАССОВ  И ОТРАБОТКА ФУНКЦИИ ПОСЛЕ ИХ ВЫЗОВА
+import sys
+from tkinter import*
+
+class HelloClass:
+    def __init__(self):
+        widget = Button(None, text="hello", command=self.quit)
+        widget.pack()
+
+    def quit(self):
+        print("hello class method world")   #self.quit связанный метод хранит пару self+quit
+        sys.exit()
+
+HelloClass()
 mainloop()
 _______________________________________________________________
 
