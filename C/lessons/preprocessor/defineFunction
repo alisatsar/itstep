@@ -36,3 +36,22 @@ int main()
 
 	LOG_FN_FINISH("foo1")
 }
+
+#include <stdio.h>
+
+#ifndef true
+	#include <stdbool.h> // если не задефайнена
+#endif
+
+#define __STDC_VERSION__ 126456
+
+#undef true //уничнтожили константу
+
+#define true "Yes"
+
+int main()
+{
+#ifdef __STDC_VERSION__			//если задефайнена
+	printf("__STDC_VERSION__: %d", __STDC_VERSION__);
+#endif
+}
