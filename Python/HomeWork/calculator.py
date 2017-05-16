@@ -1,74 +1,194 @@
+from math import*
 from tkinter import *
 
 window = Tk()
 
-leftOperand = 0
-rightOperand = 0
-movement = 0
+class Button_number:
+    leftOperand = []    #list for left operand
+    rightOperand = []   #list for right operand
+    action = []         #list for action
+    equal = []          #list for equal
+    leftOperandValue = 0
+    rightOperandValue = 0
+    firstAction = []    #list for define first and next action
+    def __init__(self, value, xpos, ypos):
+        self.value = value
+        self.button = Button(window, text = value, bg='#151515', fg='#00E676', font='helvetica 16', command=self.click)
+        self.button.place(x = 10 + xpos, y = 100 + ypos, width=50, height=50)
 
-class Calculate():
-    def __init__(self, numbers):
-        self.total = 0
-        self.current = ""
-        self.new_num = True
-        self.op_pending = False
-        self.op = ""
-        self.eq = False
+    #when click to button to define first or next action
+    def click(self):
+        if self.firstAction != []:
+            self.nextAction()
+        else:
+            self.actionFirst()
 
-window.title("Calculator!") #заголовок окна
+    #if action first
+    def actionFirst(self):
+        #fill left operand
+        if (self.value.isnumeric() or self.value == ".") and self.rightOperand == [] and self.action == []:
+            if self.value == ".":
+                self.findDot(self.leftOperand)
+            else:
+                text.insert(END, self.value)
+                self.leftOperand.append(self.value)
+        #fill action
+        elif self.value.isnumeric() == False and self.leftOperand != [] and self.rightOperand == []\
+                and self.action == [] and self.value != "<" and self.value != "root" and self.value != ".":
+            text.insert(END, self.value)
+            self.action.append(self.value)
+        #fill right operand
+        elif (self.value.isnumeric() or self.value == ".") and self.leftOperand != [] and self.action != []:
+            if self.value == ".":
+                self.findDot(self.rightOperand)
+            else:
+                text.insert(END, self.value)
+                self.rightOperand.append(self.value)
 
-window.maxsize(width = 370, height = 500)
-window.minsize(width = 370, height = 500)
+        if self.value == "=":
+            self.firstAction.append('YES')
+            self.leftOperandValue = self.convert(self.leftOperand)
+            self.rightOperandValue = self.convert(self.rightOperand)
+            self.calculate()
+        elif self.value == "clear":
+            self.clearField()
+        elif self.value == "root":
+            self.leftOperandValue = self.convert(self.leftOperand)
+            self.countRoot(self.leftOperandValue)
+        elif self.value == "<":
+            self.deleteCharacter()
+
+    #if action next
+    def nextAction(self):
+        if self.value.isnumeric() == False and self.rightOperandValue != [] and self.value != "=":
+            self.rightOperand.clear()
+        if self.value.isnumeric() == False and self.leftOperand != [] and self.rightOperand == [] \
+             and self.action != [] and self.value != "<" and self.value != "root" and self.value != "=":
+            self.action.clear()
+            text.insert(END, self.value)
+            self.action.append(self.value)
+        elif self.value.isnumeric() and self.leftOperand != [] and self.action != []:
+            text.insert(END, self.value)
+            self.rightOperand.append(self.value)
+        if self.value == '=':
+            self.leftOperandValue = self.equal[0]
+            self.rightOperandValue = self.convert(self.rightOperand)
+            self.calculate()
+        elif self.value == "clear":
+            self.clearField()
+        elif self.value == "root":
+            self.leftOperandValue = self.equal[0]
+            self.countRoot(self.leftOperandValue)
+        elif self.value == "<":
+            self.clearField()
+
+    def clearField(self):
+        self.leftOperand.clear()
+        self.leftOperandValue = 0
+        self.action.clear()
+        self.rightOperand.clear()
+        self.rightOperandValue = 0
+        self.equal.clear()
+        self.firstAction.clear()
+        text.delete(1.0, END)
+
+    def findDot(self, operand):
+        i = 0
+        countDot = 0
+        while i < len(operand):
+            if operand[i] == ".":
+                countDot = 1
+            i = i + 1
+        if countDot == 0:
+            text.insert(END, self.value)
+            operand.append(self.value)
+
+    def countRoot(self, a):
+        self.equal = sqrt(a)
+        text.delete(1.0, END)
+        text.insert(END, self.equal)
+
+    def deleteCharacter(self):
+        if self.equal == []:
+            if self.leftOperand != [0] and self.rightOperand == [] and self.action == []:
+                self.leftOperand.pop()
+                text.delete(1.0, END)
+                self.uotputTextForScreen(self.leftOperand)
+            elif self.leftOperand != [] and self.rightOperand == [] and self.action != []:
+                text.delete(1.0, END)
+                self.uotputTextForScreen(self.leftOperand)
+                self.action.clear()
+            elif self.leftOperand != [] and self.rightOperand != [] and self.action != []:
+                self.rightOperand.pop()
+                text.delete(1.0, END)
+                self.uotputTextForScreen(self.leftOperand)
+                text.insert(END, self.action[0])
+                self.uotputTextForScreen(self.rightOperand)
+
+    #convert list in int
+    def convert(self, a):
+        i = 0
+        b = ''
+        while i < len(a):
+            b = b + a[i]
+            i = i + 1
+        return float(b)
+
+    def calculate(self):
+        self.equal.clear()
+        if self.action[0] == "+":
+            self.equal.append(self.leftOperandValue + self.rightOperandValue)
+        elif self.action[0] == "-":
+            self.equal.append(self.leftOperandValue - self.rightOperandValue)
+        elif self.action[0] == "*":
+            self.equal.append(self.leftOperandValue * self.rightOperandValue)
+        elif self.action[0] == "/":
+            if self.rightOperandValue == 0:
+                text.delete(1.0, END)
+                text.insert(END, "to zero cannot be split")
+            else:
+                self.equal.append(self.leftOperandValue / self.rightOperandValue)
+        text.delete(1.0, END)
+        text.insert(END, self.equal[0])
+
+    def uotputTextForScreen(self, a):
+        j = 0
+        while j < len(a):
+            text.insert(END, a[j])
+            j = j + 1
+
+window.title("Calculator!")
+
+window.maxsize(width = 370, height = 370)
+window.minsize(width = 370, height = 370)
 
 text = Text(window, width=50, height = 5,
           font="Verdana 12",
-          wrap=NONE)        #для создания моногострочного поля, Wrap = WORD пененос слова по словам,
-                            # Wrap = WORD пененос слова по буквам
-                            # Wrap = NONE пененос Только после нажатия кнопки enter
+          wrap=NONE)
+
 text.pack()
 
 background = Frame(window, width = 370, height = 500, bg = "#212121")
 
-#прописываем кнопки
-allNumbers = "123456789"
-button = []
-i = 0
-xpos = 0
-ypos = 0
-while (i < 9):
-    if i == 1 or i == 4 or i == 6:
-        xpos = 80
-    elif i == 2 or i == 5 or i == 8:
-        xpos = 150
-    else:
-        xpos = 10
-    if i > 2 and i <= 5:
-        ypos = 170
-    elif i > 5 and i <= 8:
-        ypos = 240
-    else:
-        ypos = 100
-    button.append(Button(window, text = allNumbers[i], bg='#151515', fg='#00E676', font='helvetica 16'))
-    button[i].place(x = xpos, y = ypos, width = 50, height = 50)
-    i = i + 1
-
-
-button0 = Button(window, text = "0", bg='#151515', fg='#00E676', font='helvetica 16')
-button0.place(x = 80, y = 310, width = 50, height = 50)
-buttonDeleteChar = Button(window, text = "<", bg='#151515', fg='#00E676', font='helvetica 16')
-buttonDeleteChar.place(x = 150, y = 310, width = 50, height = 50)
-buttonPlus = Button(window, text = "+", bg='#151515', fg='#00E676', font='helvetica 16')
-buttonPlus.place(x = 240, y = 100, width = 50, height = 50)
-buttonMinus = Button(window, text = "-", bg='#151515', fg='#00E676', font='helvetica 16')
-buttonMinus.place(x = 240, y = 170, width = 50, height = 50)
-buttonMultiple = Button(window, text = "*", bg='#151515', fg='#00E676', font='helvetica 16')
-buttonMultiple.place(x = 240, y = 240, width = 50, height = 50)
-buttonDivide = Button(window, text = "/", bg='#151515', fg='#00E676', font='helvetica 16')
-buttonDivide.place(x = 240, y = 310, width = 50, height = 50)
-buttonEqual = Button(window, text = "=", bg='#151515', fg='#00E676', font='helvetica 16')
-buttonEqual.place(x = 310, y = 240, width = 50, height = 120)
-
-result = []
+button1 = Button_number("1", 0, 0)
+button2 = Button_number("2", 70, 0)
+button3 = Button_number("3", 140, 0)
+button4 = Button_number("4", 0, 70)
+button5 = Button_number("5", 70, 70)
+button6 = Button_number("6", 140, 70)
+button7 = Button_number("7", 0, 140)
+button8 = Button_number("8", 70, 140)
+button9 = Button_number("9", 140, 140)
+button0 = Button_number("0", 70, 210)
+buttonDot = Button_number(".", 0, 210)
+buttonDeleteChar = Button_number("<", 140, 210)
+buttonPlus = Button_number("+", 230, 0)
+buttonMinus = Button_number("-", 230, 70)
+buttonDegree = Button_number("clear", 300, 0)
+buttonMultiple = Button_number("*", 230, 140)
+buttonDevide = Button_number("/", 230, 210)
+buttonRoot = Button_number("root", 300, 70)
+buttonEqual = Button_number("=", 300, 210)
 
 background.pack()
 window.mainloop()
