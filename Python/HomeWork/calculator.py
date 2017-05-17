@@ -53,6 +53,7 @@ class Button_number:
         elif self.value == "clear":
             self.clearField()
         elif self.value == "root":
+            self.firstAction.append('YES')
             self.leftOperandValue = self.convert(self.leftOperand)
             self.countRoot(self.leftOperandValue)
         elif self.value == "<":
@@ -60,16 +61,21 @@ class Button_number:
 
     #if action next
     def nextAction(self):
-        if self.value.isnumeric() == False and self.rightOperandValue != [] and self.value != "=":
+        if self.value.isnumeric() == False and self.value != "." and self.rightOperandValue != [] and self.value != "=":
             self.rightOperand.clear()
         if self.value.isnumeric() == False and self.leftOperand != [] and self.rightOperand == [] \
-             and self.action != [] and self.value != "<" and self.value != "root" and self.value != "=":
+             and self.action != [] and self.value != "<" and self.value != "root" and self.value != "=" \
+                and self.value != ".":
             self.action.clear()
             text.insert(END, self.value)
             self.action.append(self.value)
-        elif self.value.isnumeric() and self.leftOperand != [] and self.action != []:
-            text.insert(END, self.value)
-            self.rightOperand.append(self.value)
+        elif (self.value.isnumeric() or self.value == ".") and self.leftOperand != [] and self.action != []:
+            if self.value == ".":
+                self.findDot(self.rightOperand)
+            else:
+                text.insert(END, self.value)
+                self.rightOperand.append(self.value)
+
         if self.value == '=':
             self.leftOperandValue = self.equal[0]
             self.rightOperandValue = self.convert(self.rightOperand)
@@ -104,7 +110,8 @@ class Button_number:
             operand.append(self.value)
 
     def countRoot(self, a):
-        self.equal = sqrt(a)
+        self.equal.clear()
+        self.equal.append(sqrt(a))
         text.delete(1.0, END)
         text.insert(END, self.equal)
 
@@ -137,17 +144,17 @@ class Button_number:
     def calculate(self):
         self.equal.clear()
         if self.action[0] == "+":
-            self.equal.append(self.leftOperandValue + self.rightOperandValue)
+            self.equal.append(abs(self.leftOperandValue + self.rightOperandValue))
         elif self.action[0] == "-":
-            self.equal.append(self.leftOperandValue - self.rightOperandValue)
+            self.equal.append(abs(self.leftOperandValue - self.rightOperandValue))
         elif self.action[0] == "*":
-            self.equal.append(self.leftOperandValue * self.rightOperandValue)
+            self.equal.append(abs(self.leftOperandValue * self.rightOperandValue))
         elif self.action[0] == "/":
             if self.rightOperandValue == 0:
                 text.delete(1.0, END)
                 text.insert(END, "to zero cannot be split")
             else:
-                self.equal.append(self.leftOperandValue / self.rightOperandValue)
+                self.equal.append(abs(self.leftOperandValue / self.rightOperandValue))
         text.delete(1.0, END)
         text.insert(END, self.equal[0])
 
