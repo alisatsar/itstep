@@ -153,6 +153,7 @@ std::ostream& operator<<(std::ostream& stream, Interval const& interval)		//сс
 std::istream& operator >> (std::istream& stream, Interval const& interval)
 {
 	char buffer[30];
+	stream.getline(buffer, 30 - 1);
 	sscanf(buffer, "%f %f", interval.m_start, interval.m_end);
 	return stream;
 }
