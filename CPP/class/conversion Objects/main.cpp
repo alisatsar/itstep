@@ -1,21 +1,20 @@
-#pragma once
-#include <iosfwd>
+#include "distance.h"
+#include <iostream>
 
-class Distance
+
+int main()
 {
-private:
-	const float m_MTF;
-	int m_feet;
-	float m_inches;
+	float meters;
+	Distance dis1 = 1.23F;
 
-public:
-	Distance();
-	Distance(float meters); //конструктором преобразования
-	Distance(int feet, float inches);
-	void getDistance();
-	void showDistance() const;
-	operator float() const;
-	friend std::ostream& operator << (std::ostream& stream, Distance const& distance);
-};
+	std::cout << "\ndis1\n";
+	std::cout << dis1;
 
-std::ostream& operator << (std::ostream& stream, Distance const& distance);
+	meters = dis1;
+
+	meters = static_cast<float>(dis1);
+
+	std::cout << meters;
+
+	return 0;
+}
