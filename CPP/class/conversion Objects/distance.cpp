@@ -34,12 +34,15 @@ void Distance::showDistance() const
 	std::cout << m_inches;;
 }
 
+//////////////////////////////////
 Distance::operator float() const
 {
 	float fracfeet = m_inches / 12;
 	fracfeet += static_cast<float>(m_feet);
 	return fracfeet / m_MTF;
 }
+///////////////////////////////////////
+
 
 std::ostream& operator << (std::ostream& stream, Distance const& distance)
 {
