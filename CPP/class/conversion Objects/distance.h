@@ -18,7 +18,13 @@ public:
 	Distance(int feet, float inches);
 	void getDistance();
 	void showDistance() const;
+	
+	
+	/////////////////////////////////////////////
 	operator float() const;
+	/////////////////////////////////////////////
+	
+	
 	friend std::ostream& operator << (std::ostream& stream, Distance const& distance);
 };
 
