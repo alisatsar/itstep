@@ -10,7 +10,11 @@ private:
 
 public:
 	Distance();
+	
+	/////////////////////////////////////////////
 	Distance(float meters); //конструктором преобразования
+	/////////////////////////////////////////////
+	
 	Distance(int feet, float inches);
 	void getDistance();
 	void showDistance() const;
