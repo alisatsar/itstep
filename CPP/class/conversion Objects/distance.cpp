@@ -6,12 +6,15 @@ Distance::Distance():m_feet(0), m_inches(0), m_MTF(3.280833F)
 {
 }
 
+/////////////////////////////////////////////////////////
 Distance::Distance(float meters): m_MTF(3.280833F)  //конструктором преобразования
 {
 	float feets = m_MTF * meters;
 	m_feet = int(feets);
 	m_inches = 12 * (feets - m_feet);
 }
+/////////////////////////////////////////////////////////
+
 
 Distance::Distance(int feet, float inches): m_feet(feet), m_inches(inches), m_MTF(3.280833F)
 {
