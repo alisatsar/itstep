@@ -33,7 +33,7 @@ public:
 	}
 	void InsertRecursive(TreeNode* node, int value)
 	{
-		if (value == node->Data)
+		if (value == node->Data)		//если значение уже есть в дереве
 		{
 			return;
 		}
