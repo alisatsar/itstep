@@ -13,9 +13,11 @@ int main()
 
 	Tree.Print();
 
-	TreeNode* node = Tree.Find(23);
+	TreeNode* node = Tree.Find(12);
+	std::cout << Tree.GetCount() << std::endl;
 	Tree.Erase(node);
 	std::cout << "\n";
+
 	Tree.Print();
 
 	return 0;
