@@ -20,6 +20,11 @@ class BinaryTree
 public:
 	BinaryTree() = default;
 
+	~BinaryTree()
+	{
+		Clear();
+	}
+
 	void Insert(int value)
 	{
 		if (m_root == nullptr)
@@ -33,7 +38,7 @@ public:
 	}
 	void InsertRecursive(TreeNode* node, int value)
 	{
-		if (value == node->Data)		//если значение уже есть в дереве
+		if (value == node->Data)
 		{
 			return;
 		}
@@ -118,7 +123,8 @@ public:
 			return;
 		}
 		TreeNode* forReplace = nullptr;
-		TreeNode* newParent = node->Parent;
+		// TreeNode* newParent = node->Parent;
+		bool nodeHasTwoChildren = false;
 		if (node->Left != nullptr && node->Right != nullptr)
 		{
 			forReplace = node->Right;
@@ -126,11 +132,13 @@ public:
 			{
 				forReplace = forReplace->Left;
 			}
-			forReplace->Data = std::move(node->Data);
+			node->Data = std::move(forReplace->Data);
 			node = forReplace;
 			forReplace = nullptr;
+			nodeHasTwoChildren = true;
 		}
 
+		TreeNode* newParent = node->Parent;
 		if (node->Left != nullptr)
 		{
 			forReplace = node->Left;
@@ -154,7 +162,42 @@ public:
 				newParent->Right = forReplace;
 			}
 		}
+		if (!nodeHasTwoChildren && node == m_root)
+		{
+			m_root = forReplace;
+		}
 		delete node;
 	}
 
+	void Clear()
+	{
+		ClearRecursive(m_root);
+		m_root = nullptr;
+	}
+
+	void ClearRecursive(TreeNode* node)
+	{
+		if (node == nullptr)
+		{
+			return;
+		}
+		ClearRecursive(node->Left);
+		ClearRecursive(node->Right);
+		delete node;
+	}
+
+	int GetCount()
+	{
+		return GetCountRecursive(m_root);
+	}
+
+	int GetCountRecursive(TreeNode* node)
+	{
+		if (node == nullptr)
+		{
+			return 0;
+		}
+
+		return GetCountRecursive(node->Left) + GetCountRecursive(node->Right) + 1;
+	}
 };
