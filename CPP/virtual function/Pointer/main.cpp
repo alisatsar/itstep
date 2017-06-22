@@ -31,7 +31,7 @@ public:
 int main()
 {
 	Child child1;
-	Child child2;
+	Child2 child2;
 	Base* ptr;
 
 	ptr = &child1;
