@@ -6,15 +6,19 @@
 template<class T>
 class DynArrayIterator
 {
-public:
+private:
 	T* index = nullptr;
-	
+public:
+	DynArrayIterator(T* index);
 	T& operator*()
 	{
 		return *index;
 	}
 
-
+	DynArrayIterator<T> operator++()
+	{
+		return DynArrayIterator<T>(index + 1);
+	}
 };
 
 template<class T>
@@ -44,7 +48,7 @@ public:
 
 	T& operator[](size_t idx);
 	T const& operator[](size_t idx) const;
-	
+
 	iterator begin();
 	iterator end();
 
@@ -146,7 +150,7 @@ void DynArray<T>::reserve(size_t newCapacity)
 	{
 		return;
 	}
-	
+
 	m_capacity = newCapacity;
 	if (m_size > m_capacity)
 	{
@@ -224,24 +228,22 @@ T const& DynArray<T>::operator[](size_t idx) const
 template<class T>
 DynArrayIterator<T> DynArray<T>::begin()
 {
-	DynArrayIterator<T> it;
-	it.index = m_data;
+	DynArrayIterator<T> it(m_data);
 	return it;
 }
 
 template<class T>
 DynArrayIterator<T> DynArray<T>::end()
 {
-	DynArrayIterator<T> it;
-	it.index = m_data + m_size;
+	DynArrayIterator<T> it(m_data + m_size);
 	return it;
 }
 
 /*template<class T>
 void DynArray<T>::Insert(iterator const& it, T const& element)
 {
-	int position = it.(*index);
-	std::cout << position;
+int position = it.(*index);
+std::cout << position;
 }*/
 
 template<class T>
