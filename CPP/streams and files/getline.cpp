@@ -13,6 +13,8 @@ int main()
 	file.close(); //Закрыть файл
 
 	std::ifstream ifile("Test.txt");
+	
+	//std::cout << ifile.rdbuf();      // или передать его буфер в cout 
 
 	while (!ifile.eof()) //цикл до EOF
 	{
