@@ -1,299 +1,175 @@
 #pragma once
-
+#include <string>
 #include <iostream>
-#include <initializer_list>
+#include <cmath>
+#include <vector>
 
-template<class T>
-class DynArrayIterator
+class Operation
 {
-private:
-	T* index = nullptr;
+protected:
+	std::string m_name;
+
 public:
-	DynArrayIterator(T* index);
-	T& operator*()
+	Operation(std::string name) : m_name(name)
 	{
-		return *index;
 	}
 
-	DynArrayIterator<T> operator++()
+	std::string GetName()
 	{
-		return DynArrayIterator<T>(index + 1);
+		return m_name;
+	}
+
+	virtual void Execute() = 0;
+};
+
+class SummOperation : public Operation
+{
+	float m_leftOperand;
+	float m_rigthOperand;
+public:
+	SummOperation(float leftOperand, float rigthOperand) :
+		m_leftOperand(leftOperand),
+		m_rigthOperand(rigthOperand),
+		Operation("Summ operation")
+	{
+	}
+
+	void Execute()
+	{
+		std::cout << m_leftOperand + m_rigthOperand;
 	}
 };
 
-template<class T>
-class DynArray
+class DifferenceOperation : public Operation
 {
-	T* m_data = nullptr;
-	size_t m_size = 0;
-	size_t m_capacity = 0;
-
+	float m_leftOperand;
+	float m_rigthOperand;
 public:
-	typedef DynArrayIterator<T> iterator;
-	DynArray() = default;
-	DynArray(size_t capacity);
-	DynArray(DynArray const& rhs);
-	DynArray(DynArray&& rhs);
-	DynArray(std::initializer_list<T> const& list);
-	DynArray& operator=(DynArray const& rhs);
-	DynArray& operator=(DynArray&& rhs);
+	DifferenceOperation(float leftOperand, float rigthOperand) :
+		m_leftOperand(leftOperand),
+		m_rigthOperand(rigthOperand),
+		Operation("Difference operation")
+	{
+	}
 
-	void reserve(size_t newCapacity);
-	size_t Size() const;
-	size_t Capacity() const;
-
-	void PushBack(T const& item);
-	void PopBack();
-	void Clear();
-
-	T& operator[](size_t idx);
-	T const& operator[](size_t idx) const;
-
-	iterator begin();
-	iterator end();
-
-	iterator operator++();
-	iterator operator--();
-
-	bool operator==(DynArray const& rhs);
-
-	int ReturnIndex(DynArrayIterator<T> const& it);
-
-	//void Insert(iterator const& it, T const& element);
+	void Execute()
+	{
+		std::cout << m_leftOperand - m_rigthOperand;
+	}
 };
 
-template<class T>
-DynArray<T>::DynArray(size_t capacity) :
-	m_capacity(capacity)
+class MultiplyOperation : public Operation
 {
-	if (m_capacity > 0)
+	float m_leftOperand;
+	float m_rigthOperand;
+public:
+	MultiplyOperation(float leftOperand, float rigthOperand) :
+		m_leftOperand(leftOperand),
+		m_rigthOperand(rigthOperand),
+		Operation("Multiply operation")
 	{
-		m_data = new T[m_capacity];
 	}
-}
 
-template<class T>
-DynArray<T>::DynArray(DynArray const& rhs) :
-	m_capacity(rhs.m_capacity),
-	m_size(rhs.m_size)
-{
-	if (m_capacity > 0)
+	void Execute()
 	{
-		m_data = new T[m_capacity];
-		for (size_t i = 0; i < m_size; ++i)
+		std::cout << m_leftOperand * m_rigthOperand;
+	}
+};
+
+class DivedeOperation : public Operation
+{
+	float m_leftOperand;
+	float m_rigthOperand;
+public:
+	class Exception
+	{
+	};
+
+	DivedeOperation(float leftOperand, float rigthOperand) :
+		m_leftOperand(leftOperand),
+		m_rigthOperand(rigthOperand),
+		Operation("Divide operation")
+	{
+	}
+
+	void Execute()
+	{
+		if (m_rigthOperand == 0)
 		{
-			m_data[i] = rhs.m_data[i];
+			throw Exception();
+		}
+
+		std::cout << m_leftOperand / m_rigthOperand;
+	}
+};
+
+class ExponentOperation : public Operation
+{
+	const float m_e = 2.71828;
+	float m_degree;
+public:
+	ExponentOperation(float degree) :
+		m_degree(degree),
+		Operation("Exponent operation")
+	{
+	}
+
+	void Execute()
+	{
+		std::cout << pow(m_e, m_degree);
+	}
+};
+
+class SinusOperation : public Operation
+{
+	float m_operand;
+public:
+	SinusOperation(float operand) :
+		m_operand(operand),
+		Operation("Sinus operation")
+	{
+	}
+
+	void Execute()
+	{
+		std::cout << sin(m_operand);
+	}
+};
+
+class CosineOperation : public Operation
+{
+	float m_operand;
+public:
+	CosineOperation(float operand) :
+		m_operand(operand),
+		Operation("Cosine operation")
+	{
+	}
+
+	void Execute()
+	{
+		std::cout << cos(m_operand);
+	}
+};
+
+class Calculator
+{
+	std::vector<Operation*> m_operations;
+public:
+	Calculator(Operation* operations)
+	{
+		m_operations.push_back(operations);
+	}
+
+	void ShowMenu()
+	{
+		std::vector<Operation*>::iterator it;
+		it = m_operations.begin();
+		while (it != m_operations.end())
+		{
+			std::cout << (*it)->GetName();
 		}
 	}
-}
 
-template<class T>
-DynArray<T>::DynArray(DynArray&& rhs) :
-	m_capacity(rhs.m_capacity),
-	m_size(rhs.m_size),
-	m_data(rhs.m_data)
-{
-	rhs.m_capacity = 0;
-	rhs.m_size = 0;
-	rhs.m_data = nullptr;
-}
 
-template<class T>
-DynArray<T>::DynArray(std::initializer_list<T> const& list)
-{
-	size_t size = list.size();
-	if (size > 0)
-	{
-		m_size = m_capacity = size;
-		m_data = new T[m_capacity];
-		T* ptr = m_data;
-		typedef typename std::initializer_list<T>::iterator iterator;
-		for (iterator it = list.begin(); it != list.end(); ++it)
-		{
-			*(ptr++) = *it;
-		}
-	}
-}
-
-template<class T>
-DynArray<T>& DynArray<T>::operator=(DynArray<T> const& rhs)
-{
-	if (&rhs != this)
-	{
-		DynArray<T> temp(rhs);      // copy to temp
-		*this = std::move(temp);    // grabbing data from temp
-	}
-	return *this;
-}
-
-template<class T>
-DynArray<T>& DynArray<T>::operator=(DynArray<T>&& rhs)
-{
-	if (&rhs != this)
-	{
-		delete[] m_data;
-		m_capacity = rhs.m_capacity;
-		m_size = rhs.m_size;
-		m_data = rhs.m_data;
-
-		rhs.m_capacity = 0;
-		rhs.m_size = 0;
-		rhs.m_data = nullptr;
-	}
-	return *this;
-}
-
-template<class T>
-void DynArray<T>::reserve(size_t newCapacity)
-{
-	if (m_capacity == newCapacity)
-	{
-		return;
-	}
-
-	m_capacity = newCapacity;
-	if (m_size > m_capacity)
-	{
-		m_size = m_capacity;
-	}
-	DynArray<T> buff(*this);
-	*this = std::move(buff);
-}
-
-template<class T>
-size_t DynArray<T>::Size() const
-{
-	return m_size;
-}
-
-template<class T>
-size_t DynArray<T>::Capacity() const
-{
-	return m_capacity;
-}
-
-template<class T>
-void DynArray<T>::PushBack(T const& item)
-{
-	if (m_size == m_capacity)
-	{
-		reserve(m_capacity > 0 ? m_capacity * 2 : 5);
-	}
-	m_data[m_size++] = item;
-}
-
-template<class T>
-void DynArray<T>::PopBack()
-{
-	if (m_size)
-	{
-		--m_size;
-		if (m_size < m_capacity / 4)
-		{
-			reserve(m_capacity / 2);
-		}
-	}
-}
-
-template<class T>
-void DynArray<T>::Clear()
-{
-	if (m_capacity > 0)
-	{
-		m_capacity = 0;
-		delete[] m_data;
-		m_data = nullptr;
-		m_size = 0;
-	}
-}
-
-template<class T>
-T& DynArray<T>::operator[](size_t idx)
-{
-	if (idx >= m_size || idx < 0)
-	{
-		std::cout << "Invalid index\n" << idx << std::endl;
-		exit(1);
-	}
-	return m_data[idx];
-}
-
-template<class T>
-T const& DynArray<T>::operator[](size_t idx) const
-{
-	DynArray<T>* nonConstThis = const_cast<DynArray<T>*>(this);
-	return (*nonConstThis)[idx];
-}
-
-template<class T>
-DynArrayIterator<T> DynArray<T>::begin()
-{
-	DynArrayIterator<T> it(m_data);
-	return it;
-}
-
-template<class T>
-DynArrayIterator<T> DynArray<T>::end()
-{
-	DynArrayIterator<T> it(m_data + m_size);
-	return it;
-}
-
-/*template<class T>
-void DynArray<T>::Insert(iterator const& it, T const& element)
-{
-int position = it.(*index);
-std::cout << position;
-}*/
-
-template<class T>
-DynArrayIterator<T> DynArray<T>::operator++()
-{
-	T* ptr = m_data;
-	DynArrayIterator<T> it;
-	it.index = ptr;
-	if (this->ReturnIndex(it) < m_size - 1)
-	{
-		it.index = ++m_data;
-	}
-	else
-	{
-		std::cout << "The wrong index, operator ++ can not be applied\n";
-	}
-	return it;
-}
-
-template<class T>
-DynArrayIterator<T> DynArray<T>::operator--()
-{
-	T* ptr = m_data;
-	DynArrayIterator<T> it;
-	it.index = ptr;
-	int index = this->ReturnIndex(it);
-	if (index < m_size && index > 0)
-	{
-		it.index = --m_data;
-	}
-	else
-	{
-		std::cout << "The wrong index, operator -- can not be applied\n";
-	}
-	return it;
-}
-
-template<class T>
-int DynArray<T>::ReturnIndex(DynArrayIterator<T> const& it)
-{
-	DynArrayIterator<T> iter = this->begin();
-	T* ptr = iter.index;
-	int i = 0;
-	for (; i < m_size; i++)
-	{
-		if (ptr == it.index)
-		{
-			return i;
-		}
-		ptr++;
-	}
-	return 0;
-}
+};
