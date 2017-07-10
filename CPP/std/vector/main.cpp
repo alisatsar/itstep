@@ -104,7 +104,8 @@ int main()
 	{
 		std::cout << *it << " ";
 	}
-
+	
+	//rbegin() - последний итератор, rend() перед последним, применяется операция it--
 	std::copy(v2.rbegin(), v2.rend(), std::ostream_iterator<int>(std::cout, " "));
 
 	int* array = &v3[0];
@@ -192,12 +193,22 @@ int main()
 	std::vector<int> v6 = { 1, 2, 7, 34, 7, 3, 40 };
 	std::copy(v6.begin(), v6.end(),	std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
-
-	auto lambda = [](int& el)
+	
+	
+	// auto возвращаемое значение, (int& el)список параметров принимающих
+	auto lambda = [](int& el)	
 	{
 		return (el % 2) == 0;
 	};
-
+	
+	int num = 3;
+	
+	//возвращает булевое значение, [] расширяем область видимости
+	std::function<bool(int&)> lambda = [&num](int& el)	
+	{
+		return (el % 2) == 0;
+	};
+	
 	auto it5 = std::remove_if(v6.begin(), v6.end(), lambda);
 	v6.erase(it5, v6.end());
 	std::copy(v6.begin(), v6.end(),	std::ostream_iterator<int>(std::cout, " "));
