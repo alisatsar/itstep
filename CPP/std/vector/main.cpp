@@ -178,7 +178,8 @@ int main()
 	v5.insert(v5.begin(), { 1, 3, 65, 7 });
 
 	std::cout << v5.size() << " " << v5.capacity() << std::endl;
-	v5.shrink_to_fit();
+	v5.shrink_to_fit(); //уменьшает ca[acity до size
+	
 	std::cout << v5.size() << " " << v5.capacity() << std::endl;
 
 	for (std::size_t i = 0; i < v5.size(); i++)
