@@ -2,6 +2,8 @@
 #include <iostream>
 #include <chrono>
 
+/////////////////////////////////////////////////////
+//используя ctime
 int const SecondsPerHour = 60 * 60;
 int const SecondsPerDay = 24 * SecondsPerHour;
 
@@ -9,22 +11,23 @@ using namespace std::chrono;
 
 int main()
 {
+	//показать количество секунды с начало отсчета
 	std::time_t current = std::time(nullptr);
-
 	std::cout << "Seconds since epoch: " << current << std::endl;
 	
+	//показать в режиме реального времени
 	tm* _tm = localtime(&current);
-
 	std::cout << "Local time: " << asctime(_tm);
-
+	
+	//показать без часового пояса
 	_tm = gmtime(&current);
-
 	std::cout << "absolut time: " << asctime(_tm);
 
+	//показать порядковый день недели (отсчет с воскресенья(0))
 	std::cout << "today is " << _tm->tm_wday << " th day pf week" << std::endl;
 
+	//арифметические операции со временем, прибавляем 7 дней к текущему времени
 	std::time_t currentPlusWeek = current + 7 * SecondsPerDay;
-
 	std::cout << "local time: " << ctime(&currentPlusWeek); // time_t mktime(tm *_tm)
 
 	//________________________
