@@ -1,5 +1,81 @@
-// ConsoleApplication2.cpp : Defines the entry point for the console application.
-//
+//////////////////////////////////////////////////
+#include <iostream>
+#include <vector>
+#include <string>
+
+int main()
+{
+	[] {
+		std::cout << "hello lambda" << std::endl;
+	};
+
+	[] {
+		std::cout << "Hello lambda" << std::endl;
+	} (); // выводит на экран "Hello lambda"
+
+	auto l = []
+	{
+		std::cout << "hello lambda" << std::endl;
+	};
+
+	l(); // выводит на экран "hello lambda"
+
+	auto lam = [](std::string s)
+	{
+		std::cout << s << std::endl;
+	};
+
+	lam("Bazinga");
+
+	//Лямбда функция не может быть шаблонная
+	//Если тип возвращаемого значения не указан, он выводится из его значения
+
+	[]
+	{
+		return 42;
+	};//вернет тип int
+
+	[]() ->double
+	{
+		return 42;
+	}; //вернет 42.0 (тип double)
+
+	int x = 0;
+	int y = 34;
+
+	auto printXY = [x, &y]//режим доступа к x по значению, к y по ссылке (можно еще так[=, &y])
+	{
+		std::cout << x << std::endl;//x нельзя модифицировать
+		std::cout << y << std::endl;
+		++y;
+	};
+
+	x = y = 77;
+	printXY();
+	printXY();
+	std::cout << "Final y: " << y << std::endl;
+
+
+	/////////////////////////////////
+	//Применение mutable
+
+	int id = 0;
+	auto f = [id]() mutable //id передается по значению,но его можно изменить
+	{
+		std::cout << "id: " << id << std::endl;
+		++id;
+	};
+
+	id = 42;
+	f();
+	f();
+	f();
+	std::cout << id << std::endl;
+}
+
+//////////////////////////////////////////////////
+
+
 
 #include <fstream>
 #include <vector>
