@@ -30,7 +30,8 @@ int main()
 	std::time_t currentPlusWeek = current + 7 * SecondsPerDay;
 	std::cout << "local time: " << ctime(&currentPlusWeek); // time_t mktime(tm *_tm)
 
-	//________________________
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////Используя chrono
 
 	system_clock::time_point tp = system_clock::now();
 	time_t t = system_clock::to_time_t(tp);
