@@ -1,9 +1,8 @@
 /*Задание 1
-
 Дан файл text.txt, в котором есть текст в кодировке ANSI.
-Запишите этот же текст в файл с кодировкой UTF - 8. 
+Запишите этот же текст в файл с кодировкой UTF - 8.
 При работе вам понадобится : подключить <codecvt>
-использовать поток wofstream 
+использовать поток wofstream
 дописать две строчки :
 std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
 fout.imbue(loc);
@@ -22,7 +21,7 @@ fout.imbue(loc);
 int main()
 {
 	setlocale(LC_ALL, "russian");
-	std::ifstream ifile("C:\\Users\\gamer\\Desktop\\text.txt");
+	std::ifstream ifile("C:\\Users\\gamer\\Desktop\\text.txt", std::ios_base::end);
 
 	if (!ifile.is_open())
 	{
@@ -42,20 +41,20 @@ int main()
 	wchar_t* strUnicode;
 
 	size_t len;
+//	ifile.getline(strAnsi, 256)
 
 	/*while (std::getline(ifile, buffer))
 	{
-		strcpy(strAnsi, buffer.c_str());
-		len = mbstowcs(NULL, strAnsi, 0) + 1;
-
-		strUnicode = new wchar_t[len];
-
-		mbstowcs(strUnicode, strAnsi, len);
-
-		ofile << strUnicode << std::endl;
+	strcpy(strAnsi, buffer.c_str());
+	len = mbstowcs(NULL, strAnsi, 0) + 1;
+	strUnicode = new wchar_t[len];
+	mbstowcs(strUnicode, strAnsi, len);
+	ofile << strUnicode << std::endl;
 	}*/
 
 	auto size = ifile.tellg();
+
+	ifile.seekg(0);
 
 	char* text = new char[size];
 
