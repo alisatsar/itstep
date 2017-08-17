@@ -1,8 +1,6 @@
-/*Задание 1
-Дан файл text.txt, в котором есть текст в кодировке ANSI.
-Запишите этот же текст в файл с кодировкой UTF - 8.
+Запишите этот же текст в файл с кодировкой UTF - 8. 
 При работе вам понадобится : подключить <codecvt>
-использовать поток wofstream
+использовать поток wofstream 
 дописать две строчки :
 std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
 fout.imbue(loc);
@@ -34,37 +32,52 @@ int main()
 
 	ofile.imbue(loc);
 
-	char strAnsi[250];
-
-	std::string buffer;
+	char strAnsi[256];
 
 	wchar_t* strUnicode;
 
 	size_t len;
-//	ifile.getline(strAnsi, 256)
 
-	/*while (std::getline(ifile, buffer))
+
+	//getline
+	/*while (ifile.getline(strAnsi, 256))
 	{
-	strcpy(strAnsi, buffer.c_str());
-	len = mbstowcs(NULL, strAnsi, 0) + 1;
-	strUnicode = new wchar_t[len];
-	mbstowcs(strUnicode, strAnsi, len);
-	ofile << strUnicode << std::endl;
+		len = mbstowcs(NULL, strAnsi, 0) + 1;
+
+		strUnicode = new wchar_t[len];
+
+		mbstowcs(strUnicode, strAnsi, len);
+
+		ofile << strUnicode << std::endl;
 	}*/
 
-	auto size = ifile.tellg();
 
-	ifile.seekg(0);
-
-	char* text = new char[size];
-
-	ifile.read(text, size);
-
+	//read
+	/*char* text = new char[2500];
+	memset(text, 0, 2500);
+	ifile.read(text, 2500);
 	len = mbstowcs(NULL, text, 0) + 1;
-
 	strUnicode = new wchar_t[len];
-
 	mbstowcs(strUnicode, text, len);
+	ofile << strUnicode << std::endl;*/
 
-	ofile << strUnicode << std::endl;
+
+	//get
+	char c[2500];
+
+	while (!ifile.eof())
+	{
+		ifile.get(c, 2500, '\0');
+
+		len = mbstowcs(NULL, c, 0) + 1;
+
+		strUnicode = new wchar_t[len];
+
+		mbstowcs(strUnicode, c, len);
+
+		ofile << strUnicode << std::endl;
+	}
+
+	ofile.close();
+	ifile.close();
 }
