@@ -1,32 +1,26 @@
 #include <Windows.h>
 #include <WinUser.h>
 
+#define MYTIMER 668
+
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM Param)
 {
-
-	HDC hdc;		//для рисования в окне
-	PAINTSTRUCT ps;
-	RECT rect;
-
 	switch (Msg)
 	{
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-		GetClientRect(hWnd, &rect);
-		DrawText(hdc, L"Hello ", -1, &rect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
-
-		EndPaint(hWnd, &ps);
+	case WM_CREATE:
+		SetTimer(hWnd, MYTIMER, 1100, NULL);
 		break;
 	case WM_DESTROY:
+		KillTimer(hWnd, MYTIMER);
 		PostQuitMessage(0);
 		break;
-
 	case WM_TIMER:
-	
+		SetClassLong(hWnd, GCL_STYLE, (LONG)L"My 85 Window");
+		InvalidateRect(hWnd, NULL, true);
+		break;
 	default:
 		return DefWindowProc(hWnd, Msg, wParam, Param);
-
 	}
 
 	return 0;
@@ -63,20 +57,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPervInstance, LPSTR lpCmdLine
 	{
 		return -1;
 	}
-
-	
+		
 	ShowWindow(hWnd, 1);
 	UpdateWindow(hWnd);
 
-	HWND hWnd2 = CreateWindowEx(WS_EX_TOPMOST, szClassName, L"Second Window",
-		WS_OVERLAPPEDWINDOW | WS_VSCROLL, 250, 0, 250, 250, NULL, NULL, hInstance, NULL);
-
-	SetClassLong(hWnd2, GCL_HBRBACKGROUND, (LONG)CreateSolidBrush(RGB(250, 0, 0)));
-
-	//UINT SetTimer(hWnd2, UINT_PTR idEvent, 10000, (TIMERPROC)NULL);
-
-	ShowWindow(hWnd2, 1);
-	UpdateWindow(hWnd2);
+	SetClassLong(hWnd, GCL_HBRBACKGROUND, (LONG)CreateSolidBrush(RGB(250, 0, 0)));
 
 	HWND hWnd3 = CreateWindowEx(WS_EX_TOPMOST, szClassName, L"Tried Window",
 		WS_OVERLAPPEDWINDOW | WS_VSCROLL, 500, 0, 250, 250, NULL, NULL, hInstance, NULL);
@@ -92,7 +77,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPervInstance, LPSTR lpCmdLine
 	ShowWindow(hWnd4, 1);
 	UpdateWindow(hWnd4);
 
-	MessageBoxW(hWnd, L"Hello, Step", L"MessageBox", MB_OK);
+	//MessageBoxW(hWnd, L"Hello, Step", L"MessageBox", MB_OK);
 
 
 	MSG msg;
