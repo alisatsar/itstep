@@ -5,11 +5,13 @@
 #include <cstdlib>
 #include <ctime>
 
+
 int const width = 300;
 int const height = 100;
 
 #define MYTIMER 141
 #define MYTIMER2 142
+#define MYTIMER3 143
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam);
 
@@ -41,8 +43,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPervInstance, LPSTR lpCmdLine
 
 	hWnd = CreateWindowEx(WS_EX_WINDOWEDGE, szClassName, szTitleName, WS_OVERLAPPEDWINDOW ^ (WS_MAXIMIZEBOX | WS_MINIMIZEBOX),
 		CW_USEDEFAULT, CW_USEDEFAULT, width, height,
-		HWND_DESKTOP,//родитель рабочий стол тоже самое что и NULL
-		NULL,//будет меню или нет
+		HWND_DESKTOP,
+		NULL,
 		hInstance, NULL);
 
 	if (!hWnd) {
@@ -56,7 +58,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPervInstance, LPSTR lpCmdLine
 	MSG msg;
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
-		TranslateMessage(&msg);//нужно так как будет приниматься сообщение от клавиатуры, для перевода значения 
+		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
 
@@ -65,17 +67,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPervInstance, LPSTR lpCmdLine
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 {
-	int x;
-	int y;
+	static int x;
+	static int y;
 	static int time = 1000;
 
 	HDC hdc;
 	PAINTSTRUCT ps;
 	RECT rect;
 
-
 	static int desktopWidth;
 	static int desktopHeigth;
+
+	static std::time_t current;
+	static tm* _tm;
+
+	char timeNow[9];
+	memset(timeNow, 0, 9);
+	char hour[3];
+	char minute[3];
+	char second[3];
+	int len;
+	wchar_t* strUnicode;
 
 	switch (uMessage)
 	{
@@ -84,13 +96,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_PAINT:
+		current = std::time(nullptr);
+		_tm = localtime(&current);
+		 
+		itoa(_tm->tm_hour, hour, 10);
+		strcat(timeNow, hour);
+		strcat(timeNow, ":");
+
+		itoa(_tm->tm_min, minute, 10);
+		strcat(timeNow, minute);
+		strcat(timeNow, ":");
+
+		itoa(_tm->tm_sec, second, 10);
+		strcat(timeNow, second);
+
+		len = mbstowcs(NULL, timeNow, 0) + 1;
+		strUnicode = new wchar_t[len];
+		mbstowcs(strUnicode, timeNow, len);
+
 		hdc = BeginPaint(hWnd, &ps);
 		GetClientRect(hWnd, &rect);
 		SetTextColor(hdc, RGB(50, 50, 150));
 		SetBkMode(hdc, TRANSPARENT);
-		DrawText(hdc, L"Hello, Step\nBye, Step", -1, &rect, DT_VCENTER);
+		DrawText(hdc, strUnicode, -1, &rect, DT_VCENTER);
+		SetTimer(hWnd, MYTIMER3, 1000, NULL);
 		EndPaint(hWnd, &ps);
-		RedrawWindow(hWnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_UPDATENOW);
 		break;
 
 	case WM_TIMER:
@@ -101,9 +131,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 			{
 				DestroyWindow(hWnd);
 			}
+			else
+			{
+				KillTimer(hWnd, MYTIMER);
+			}
 			break;
 		case MYTIMER2:
-			MoveWindow(hWnd, x, y, width, height, true);
+			hdc = GetDC(hWnd);
+			GetWindowRect(hWnd, &rect);
+			do 
+			{
+				MoveWindow(hWnd, rect.left + 150, 0, width, height, true);
+			} while (rect.left <= desktopWidth - width);
+			break;
+
+		case MYTIMER3:
+			RedrawWindow(hWnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASE);
 			break;
 		}
 		break;
@@ -155,26 +198,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 		switch (wParam)
 		{
 		case VK_RETURN:
-			SystemParametersInfo(SPI_GETWORKAREA, 0, &rect, 0);
-			desktopWidth = rect.right;
-			desktopHeigth = rect.bottom;
-
-			x = LOWORD(lParam);
-			y = HIWORD(lParam);
 			SetTimer(hWnd, MYTIMER2, time, NULL);
-			/*do
-			{
-				x += 10;
-				
-				//time += 1000;
-			} while (x <= desktopWidth - width);*/
+			MoveWindow(hWnd, 0, 0, width, height, true);
 			break;
+		case VK_ESCAPE:
+			KillTimer(hWnd, MYTIMER2);
 		}
 		break;
 
-	
-
-	case WM_CLOSE://когда нажимаю закрыть окно
+	case WM_CLOSE:
 		if (MessageBox(hWnd, _TEXT("Вы действительно хотите завершить работу приложения?"), _TEXT("Информация"), MB_YESNO) == IDYES)
 		{
 			DestroyWindow(hWnd);
