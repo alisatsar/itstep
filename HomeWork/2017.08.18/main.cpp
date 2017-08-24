@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <ctime>
 
-
 int const width = 300;
 int const height = 100;
 
@@ -118,7 +117,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 		GetClientRect(hWnd, &rect);
 		SetTextColor(hdc, RGB(50, 50, 150));
 		SetBkMode(hdc, TRANSPARENT);
-		DrawText(hdc, strUnicode, -1, &rect, DT_VCENTER);
+		DrawText(hdc, strUnicode, -1, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 		SetTimer(hWnd, MYTIMER3, 1000, NULL);
 		EndPaint(hWnd, &ps);
 		break;
