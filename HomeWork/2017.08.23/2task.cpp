@@ -3,9 +3,13 @@
 #include "resource.h"
 #include <vector>
 
-#define ID_BUTTON_FAST 2000
-#define ID_BUTTON_SLOW 2001
+#define MYTIMER_QUICKLY_CATS 303
+#define MYTIMER_SLOWLY_CATS 304
 
+std::vector<HBITMAP> cats;
+std::vector<HBITMAP> dogs;
+
+int i = 0;
 
 BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -30,7 +34,6 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 
-	HBITMAP hbm;
 	static std::vector<HBITMAP> dogs;
 	static HWND hCheckBoxCats;
 	static HWND hCheckBoxDogs;
@@ -38,10 +41,12 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	static HWND hRadioButtonQuickly;
 	static HWND hRadioButtonSlow;
 
-	static HWND hPicture;
+	static HWND hStart;
 
-	LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP1));
 	
+	static HWND hPicture;
+	
+
 	switch (uMsg)
 	{
 	case WM_INITDIALOG:
@@ -49,32 +54,86 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		hCheckBoxDogs = GetDlgItem(hWnd, IDC_CHECK_DOGS);
 
 		hRadioButtonQuickly = GetDlgItem(hWnd, IDC_RADIO_QUICKLY);
-		hRadioButtonQuickly = GetDlgItem(hWnd, IDC_RADIO_SLOWLY);
+		hRadioButtonSlow = GetDlgItem(hWnd, IDC_RADIO_SLOWLY);
 
 		hPicture = GetDlgItem(hWnd, IDC_PICTURE);
 
-		hbm = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP1));
-		SendMessage(hPicture, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hbm);
+		hStart = GetDlgItem(hWnd, ID_START);
+
+		cats.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP1)));
+		cats.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2)));
+		cats.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP3)));
+		cats.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP4)));
+		cats.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP5)));
+		dogs.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP6)));
+		dogs.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP7)));
+		dogs.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP8)));
+		dogs.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP9)));
+		dogs.push_back(LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP10)));
+
 		return true;
 
 	case WM_COMMAND:
-		if (LOWORD(wParam) == IDC_CHECK_CATS)//в WPARAM приходит id
+		if (SendMessage(hStart, BM_GETSTATE, 0, 0))
 		{
-			SendMessage((HWND)lParam, BM_SETSTATE, TRUE, 0); 
+			if (SendMessage(hCheckBoxCats, BM_GETSTATE, 0, 0) == BST_CHECKED)
+			{
+				if (SendMessage(hRadioButtonQuickly, BM_GETCHECK, 0, 0) == BST_CHECKED)
+				{
+					while(i < 5)
+					{
+						SetTimer(hWnd, MYTIMER_QUICKLY_CATS, 1000, NULL);
+						i = i + 1;
+					}
+				}
+				else if (SendMessage(hRadioButtonSlow, BM_GETCHECK, 0, 0) == BST_CHECKED)
+				{
+					SetTimer(hWnd, MYTIMER_SLOWLY_CATS, 5000, NULL);
+				}
+			}
+		}
+		/*if (LOWORD(wParam) == ID_START)//в WPARAM приходит id
+		{
+			if (LOWORD(wParam) == IDC_CHECK_CATS)
+			{
+				if (LOWORD(wParam) == IDC_RADIO_QUICKLY)
+				{
+					SetTimer(hWnd, MYTIMER_QUICKLY_CATS, 50, NULL);
+				}
+				else if (LOWORD(wParam) == IDC_RADIO_SLOWLY)
+				{
+					SetTimer(hWnd, MYTIMER_SLOWLY_CATS, 50, NULL);
+				}
+			}
+			else if (LOWORD(wParam) == IDC_CHECK_DOGS)
+			{
 
+			}
+		}
+		*/
+		/*else if (LOWORD(wParam) == ID_STOP)
+		{
+			KillTimer(hWnd, MYTIMER_QUICKLY_CATS);
+			KillTimer(hWnd, MYTIMER_SLOWLY_CATS);
+		}*/
+		
+		return true;
+
+	case WM_TIMER:
+		switch (wParam)
+		{
+		case MYTIMER_QUICKLY_CATS:
+			SendMessage(hPicture, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)cats[i]);
+			break;
+		case MYTIMER_SLOWLY_CATS:
+			SendMessage(hPicture, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)cats[5 % 5]);
+			break;
 		}
 		return true;
 
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-		if (hPicture)
-		{
-			EndPaint(hWnd, &ps);
-		}
-		EndPaint(hWnd, &ps);
-		break;
-
 	case WM_CLOSE:
+		KillTimer(hWnd, MYTIMER_QUICKLY_CATS);
+		KillTimer(hWnd, MYTIMER_SLOWLY_CATS);
 		DestroyWindow(hWnd);
 		PostQuitMessage(0);
 		return true;
