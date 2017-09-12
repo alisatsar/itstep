@@ -21,8 +21,6 @@ namespace _2017._09._12_HomeWork_task5
             int a = 10;
             int b = 1;
 
-            //Console.Write((numberInt % 10) / b);
-
             for (int i = 0; i < numberStr.Length; i++)
             {
                 Console.Write((numberInt % a) / b);
