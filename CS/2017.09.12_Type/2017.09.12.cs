@@ -63,49 +63,47 @@ namespace _2017._09._12_CS
 
             var key = Console.ReadKey();
 
-            Console.WriteLine("@");
+            
 
             var random = new Random();
 
             int boneX = random.Next(0, Console.WindowWidth - 1);
 
-            int boneY = random.Next(0, Console.BufferHeight);
+            int boneY = random.Next(0, Console.WindowHeight);
 
             while (key.Key != ConsoleKey.Escape)
             {
-               
-                switch(key.Key)
+                switch (key.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        y = y > 0 ? y - 1 : 0;
+                        y = y > 0 ? (y - 1) : 0;
                         break;
                     case ConsoleKey.DownArrow:
-                        y = y < Console.BufferHeight ? y + 1 : Console.BufferHeight;
+                        y = y < Console.WindowHeight ? (y + 1) : Console.WindowHeight;
                         break;
                     case ConsoleKey.LeftArrow:
-                        x = x > 0 ? x - 1 : 0;
+                        x = x > 0 ? (x - 1) : 0;
                         break;
                     case ConsoleKey.RightArrow:
-                        x = x < Console.BufferWidth - 1 ? x + 1 : Console.BufferWidth - 1;
+                        x = x < Console.WindowWidth ? x + 1 : Console.WindowWidth - 1;
                         break;
                 }
 
                 Console.Clear();
                 Console.SetCursorPosition(x, y);
-                Console.Write("@");
+                Console.WriteLine("@");
 
                 Console.SetCursorPosition(boneX, boneY);
-                Console.Write("x"); 
-               
+                Console.WriteLine("x");
+
                 if (x == boneX && y == boneY)
                 {
                     boneX = random.Next(0, Console.WindowWidth - 1);
-                    boneY = random.Next(0, Console.BufferHeight);
+                    boneY = random.Next(0, Console.WindowHeight);
                 }
 
                 key = Console.ReadKey();
             }
-           
         }
     }
 }
