@@ -83,10 +83,10 @@ namespace _2017._09._13
                     }
                     else
                     {
-                        nextGeneration[i, j] = true;
+                        nextGeneration[i, j] = matrix[i, j];
                     }
                 }
-                    nextGeneration[coordinateLifeX, coordianteLifeY] = true;
+                    //nextGeneration[coordinateLifeX, coordianteLifeY] = true;
             }
        
         }
