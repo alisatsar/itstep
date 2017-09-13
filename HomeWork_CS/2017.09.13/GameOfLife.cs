@@ -12,10 +12,7 @@
 предыдущее правило, вырожденное до одного шага назад)*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace _2017._09._13_HomeWork
 {
@@ -57,14 +54,6 @@ namespace _2017._09._13_HomeWork
             }
 
             bool[,] nextGeneration = new bool[SizeXInt, SizeYInt];
-
-            /*for (int x = 0; x < SizeXInt; x++)
-            {
-                for (int y = 0; y < SizeYInt; y++)
-                {
-                    matrix[coordinateLifeX, coordianteLifeY] = true;
-                }
-            }*/
 
             int count = 0;
 
@@ -146,9 +135,7 @@ namespace _2017._09._13_HomeWork
                         {
                             str.Append(" ");
                         }
-                    }
-                    
-                    //nextGeneration[coordinateLifeX, coordianteLifeY] = true;
+                    }                
                 }
                 Console.Clear();         
                 Console.WriteLine(str);
