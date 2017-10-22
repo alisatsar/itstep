@@ -41,7 +41,7 @@ int main()
 
 	auto elem = vec[0];//происходит перемещение, vec[0] теперь пустой
 	//std::cout << *vec[0]; ошибка
-	//std::auto уберут в 17 стандарте
+	//std::auto_ptr уберут в 17 стандарте
 
 	//инициализация
 	auto p3 = std::auto_ptr<Point>(new Point);
