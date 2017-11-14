@@ -57,3 +57,86 @@
                 <RadioButton Grid.Row="1" Grid.Column="4"  Content="Грады"></RadioButton>
             </StackPanel>
         </GroupBox>   
+
+
+
+
+.////////////////////////////////////////
+<Window x:Class="_2017._11._14.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2017._11._14"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+   
+    <GroupBox Grid.Column="0" Header="Личная информация">
+        <StackPanel Orientation ="Vertical" VerticalAlignment="Stretch">
+            <Label Content="ФИО"></Label>
+            <TextBox></TextBox>
+            <Label Content="Возраст"></Label>
+            <TextBox></TextBox>
+            <Label Content="Семейное положение"></Label>
+            <TextBox></TextBox>
+            <Label Content="Адрес"></Label>
+            <TextBox></TextBox>
+            <Label Content="Эл. ящик"></Label>
+            <TextBox></TextBox>
+        </StackPanel>
+    </GroupBox>
+        <GroupBox Grid.Column="1" Header="Личная информация">
+        <StackPanel Orientation ="Vertical" VerticalAlignment="Stretch">
+            <CheckBox Content="C#"></CheckBox>
+            <CheckBox Content="ASP.NET"></CheckBox>
+            <CheckBox Content="ADO.NET"></CheckBox>
+            <CheckBox Content="LINQ"></CheckBox>
+            <CheckBox Content="ENTITY FW"></CheckBox>
+            <CheckBox Content="WPF"></CheckBox>
+            <CheckBox Content="WCF"></CheckBox>
+            <CheckBox Content="MS SQL"></CheckBox>
+            <CheckBox Content="Java Script"></CheckBox>
+        </StackPanel>
+    </GroupBox>
+        <GroupBox Grid.Column="2">
+        <StackPanel Orientation ="Vertical" VerticalAlignment="Stretch">
+            <GroupBox Grid.Row="1" Header="Должность">
+                <StackPanel Orientation ="Vertical" VerticalAlignment="Stretch">
+                    <RadioButton Content="Junior developer"></RadioButton>
+                    <RadioButton Content="Junior developer"></RadioButton>
+                    <RadioButton Content="Junior developer"></RadioButton>
+                    <RadioButton Content="Junior developer"></RadioButton>
+                    <RadioButton Content="Junior developer"></RadioButton>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="Английский">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation ="Vertical" VerticalAlignment="Stretch">
+                        <RadioButton Content="Junior developer"></RadioButton>
+                        <RadioButton Content="Junior developer"></RadioButton>
+                        <RadioButton Content="Junior developer"></RadioButton>
+                        <RadioButton Content="Junior developer"></RadioButton>
+                        <RadioButton Content="Junior developer"></RadioButton>
+                    </StackPanel>
+                </ScrollViewer>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="Желаемая зп">
+                <StackPanel Orientation ="Vertical" VerticalAlignment="Stretch">
+                    <RadioButton Content="Junior developer"></RadioButton>
+                    <RadioButton Content="Junior developer"></RadioButton>
+                    <RadioButton Content="Junior developer"></RadioButton>
+                    <RadioButton Content="Junior developer"></RadioButton>
+                    <RadioButton Content="Junior developer"></RadioButton>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </GroupBox>
+    </Grid>
+</Window>
+
