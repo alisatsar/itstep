@@ -26,3 +26,24 @@
         <Button Content="Main"></Button>
     </DockPanel>  
 </Window>
+
+
+<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Content="Menu" Grid.ColumnSpan="3"></Button>
+        <Button Content="TB" Grid.Row="1" Grid.ColumnSpan="3"></Button>
+        <Button Content="SB" Grid.Row="3" Grid.ColumnSpan="3"></Button>
+        <Button Content="P" Grid.Row="2" ></Button>
+        <Button Content="M" Grid.Row="2" Grid.Column="3"></Button>
+        <GridSplitter Grid.Column="1" Grid.Row="2" Width="3"></GridSplitter>
+    </Grid>
