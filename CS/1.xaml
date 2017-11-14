@@ -47,3 +47,13 @@
         <Button Content="M" Grid.Row="2" Grid.Column="3"></Button>
         <GridSplitter Grid.Column="1" Grid.Row="2" Width="3"></GridSplitter>
     </Grid>
+
+
+        <GroupBox Grid.Row="1" Grid.ColumnSpan="5">
+            <StackPanel Orientation ="Horizontal" HorizontalAlignment="Stretch">
+                <RadioButton Grid.Row="1" Grid.ColumnSpan="2" Content="Градусы">
+                </RadioButton>
+                <RadioButton Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Content="Радианы"></RadioButton>
+                <RadioButton Grid.Row="1" Grid.Column="4"  Content="Грады"></RadioButton>
+            </StackPanel>
+        </GroupBox>   
