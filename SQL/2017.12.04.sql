@@ -81,3 +81,7 @@ INSERT INTO UserData (FirstName, SecondName) VALUES
 	('Aleksandr', 'Kirov'),
 	('Maria', 'Arhenko'),
 	('Elena', 'Borisova');
+	
+GO
+Create View VwPhoneNumbers
+As
