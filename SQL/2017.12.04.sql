@@ -82,6 +82,64 @@ INSERT INTO UserData (FirstName, SecondName) VALUES
 	('Maria', 'Arhenko'),
 	('Elena', 'Borisova');
 	
+ALTER TABLE PhoneCalls
+   ADD CONSTRAINT FK_PhoneCalls_PhoneNumberAndPrefix
+   FOREIGN KEY(PhoneNumber, Prefix)
+   REFERENCES PhoneNumber(PhoneNumber, Prefix)
+
+
+INSERT INTO Tariff(TariffName, PriceForOneMinute, CountFreeMegabyte,CountFreeMinute) VALUES
+	('Plus500', '10', '500', '24'),
+	('Plus100', '5', '100', '12'),
+	('Deti', '1', '10', '50'),
+	('Another', '2', '1000', '50')
+
+Insert Into PhoneNumber(PhoneNumber, Prefix, UserId, TariffName) values
+('2963964', '44', '1', 'Another'),
+('1125052', '24', '2', 'Another'),
+('5525525', '24', '2', 'Deti'),
+('5525525', '44', '3', 'Plus100'),
+('7745454', '44', '4', 'Plus500'),
+('4565465', '44', '5', 'Plus100'),
+('4276337', '44', '6', 'Deti'),
+('7357735', '44', '7', 'Plus500'),
+('9396463', '44', '8', 'Plus500'),
+('4576321', '44', '9', 'Deti'),
+('3753543', '44', '10', 'Plus100')
+
+Insert Into PhoneCalls(DateCalls, PhoneNumber, Prefix) values
+('2017-11-01', '1125052', '24'),
+('2017-11-27', '5525525', '24'),
+('2017-11-30', '5525525', '44'),
+('2017-10-25', '2963964', '44'),
+('2017-11-13', '1125052', '24'),
+('2017-11-18', '5525525', '24'),
+('2017-11-30', '7357735', '44'),
+('2017-10-04', '9396463', '44'),
+('2017-11-01', '9396463', '44'),
+('2017-11-27', '4576321', '44'),
+('2017-11-30', '4576321', '44'),
+('2017-10-25', '3753543', '44'),
+('2017-11-13', '3753543', '44'),
+('2017-10-18', '5525525', '24'),
+('2017-10-30', '7357735', '44'),
+('2017-11-05', '1125052', '24'),
+('2017-11-05', '5525525', '24'),
+('2017-11-05', '5525525', '44'),
+('2017-12-05', '2963964', '44')
+
+
+select *from PhoneCalls
+
 GO
-Create View VwPhoneNumbers
+Create View VwPhoneCalls
 As
+Select PhoneCalls.DateCalls, 
+	PhoneCalls.PhoneNumber,
+	PhoneCalls.Prefix,	
+	Tariff.TariffName,
+	Tariff.PriceForOneMinute
+From PhoneCalls,PhoneNumber
+JOIN Tariff ON PhoneNumber.TariffName = Tariff.TariffName
+JOIN UserData ON PhoneNumber.UserId = UserData.UserId
+GO
