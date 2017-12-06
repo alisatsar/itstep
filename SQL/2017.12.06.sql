@@ -21,3 +21,5 @@ END
 GO
 
 http://www.sql.ru/faq/faq_topic.aspx?fid=129
+
+select dbo.Get_Count_Secounds('9396463')
