@@ -143,3 +143,45 @@ From PhoneCalls,PhoneNumber
 JOIN Tariff ON PhoneNumber.TariffName = Tariff.TariffName
 JOIN UserData ON PhoneNumber.UserId = UserData.UserId
 GO
+
+select *from PhoneCalls
+
+go
+select *from dbo.Get_Number_prefix('44')
+
+select *from PhoneNumber
+
+select dbo.GetUser('Deti', '5525525')
+
+CREATE TABLE PhoneCalls(
+	DateCallsBegin datetime NOT NULL,
+	DateCallsEnd datetime NOT NULL,
+	PhoneNumber int NOT NULL,
+	Prefix int NOT NULL
+)ON [PRIMARY]
+GO
+
+ALTER TABLE PhoneCalls
+ADD COLUMN `id_user_5` text NOT NULL default '' AFTER `hometask`;
+
+alter table PhoneCalls
+add constraint EX_PhoneCalls_DateCalls_PhoneNumber_Prefix 
+primary key (DateCallsBegin, DateCallsEnd,  PhoneNumber, Prefix)
+GO
+
+ALTER TABLE PhoneCalls
+   ADD CONSTRAINT FK_PhoneCalls_PhoneNumberAndPrefix
+   FOREIGN KEY(PhoneNumber, Prefix)
+   REFERENCES PhoneNumber(PhoneNumber, Prefix)
+
+Insert Into PhoneCalls(DateCallsBegin, DateCallsEnd, PhoneNumber, Prefix) values
+('20171101 00:02:00 AM', '20171101 00:03:45 AM', '1125052', '24'),
+('20171130 11:45:07 PM', '20171130 11:46:10 PM', '5525525', '44'),
+('20171127 10:45:07 AM', '20171127 10:47:10 AM', '5525525', '24'),
+('20171025 02:25:25 AM', '20171025 02:28:45 AM', '2963964', '44'),
+('20171113 06:39:58 PM', '20171025 06:55:45 PM', '1125052', '24'),
+('20171118 01:55:33 AM', '20171025 02:05:45 AM', '5525525', '24'),
+('20171130 03:44:18 PM', '20171025 04:05:45 PM', '7357735', '44'),
+('20171004 07:05:23 PM', '20171025 08:14:45 PM', '9396463', '44')
+
+TRUNCATE TABLE PhoneCalls
