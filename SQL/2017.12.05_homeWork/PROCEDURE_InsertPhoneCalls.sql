@@ -3,8 +3,7 @@ CREATE PROCEDURE InsertPhoneCalls (
 @DateCallsE datetime,
 @PhoneNumber int,
 @Prefix int)
-As Select DateCallsBegin, DateCallsEnd,  PhoneNumber, Prefix
-from PhoneCalls
+As 
 begin Try
 	insert into PhoneCalls values (@DateCallsB, @DateCallsE, @PhoneNumber, @Prefix)
 	end try
