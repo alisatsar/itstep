@@ -185,3 +185,17 @@ Insert Into PhoneCalls(DateCallsBegin, DateCallsEnd, PhoneNumber, Prefix) values
 ('20171004 07:05:23 PM', '20171025 08:14:45 PM', '9396463', '44')
 
 TRUNCATE TABLE PhoneCalls
+
+Create Table FailureInput(
+TableName nvarchar(50), not null,
+TableLog nvarchar(50), not null,
+DateWrite datetime, not null
+)ON [PRIMARY]
+GO
+
+alter table FailureInput
+add constraint EX_FailureInput_TableName_TableLog_DateWrite
+primary key (TableName, TableLog, DateWrite)
+GO
+
+select *from FailureInput
