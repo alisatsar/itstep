@@ -63,3 +63,5 @@ BEGIN catch
 	declare @date datetime = GETDATE()
 	Insert into FailureInput values ('PhoneCalls', 'invalid input', @date)
 end catch
+
+https://stackoverflow.com/questions/794637/how-to-update-rows-with-a-random-date
