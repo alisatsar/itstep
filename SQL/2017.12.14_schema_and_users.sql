@@ -14,6 +14,10 @@ CREATE TABLE Sellers.Sellers (
 GRANT SELECT TO A1;
 DENY UPDATE TO A1;
 
+exec AddNewSeller Marya, Ivanova
+
+select *from Sellers.Sellers
+
 ---------------------------------------------
 
 CREATE PROCEDURE AddNewSeller
