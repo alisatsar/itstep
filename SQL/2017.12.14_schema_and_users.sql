@@ -42,6 +42,10 @@ GRANT INSERT ON PhoneCalls
     TO A1
 	With grant option;
 
+--дать права пользователю A1 на insert
+
+GRANT INSERT ON PhoneCalls
+    TO A2
 ---------------------------------------------
 
 CREATE PROCEDURE AddNewSeller
