@@ -46,6 +46,9 @@ GRANT INSERT ON PhoneCalls
 
 GRANT INSERT ON PhoneCalls
     TO A2
+    
+---Забрать доступ
+Deny insert On PhoneCalls to A1 Cascade
 ---------------------------------------------
 
 CREATE PROCEDURE AddNewSeller
