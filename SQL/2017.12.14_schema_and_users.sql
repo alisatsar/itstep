@@ -18,6 +18,11 @@ exec AddNewSeller Marya, Ivanova
 
 select *from Sellers.Sellers
 
+----------перемещение таблицы
+
+ALTER SCHEMA dbo TRANSFER Sellers.Sellers;
+GO
+
 ---------------------------------------------
 
 CREATE PROCEDURE AddNewSeller
@@ -29,3 +34,15 @@ BEGIN
 	(@FirstName, @SecondName)
 END
 GO
+
+CREATE LOGIN Alisa2 
+    WITH PASSWORD = '123';
+USE alisa;
+CREATE USER A2 FOR LOGIN Alisa2;
+GO 
+
+CREATE ROLE Sel AUTHORIZATION A2;  
+GO  
+
+GRANT SELECT ON PhoneCalls
+    TO A2;
