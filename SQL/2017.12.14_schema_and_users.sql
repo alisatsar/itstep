@@ -13,3 +13,15 @@ CREATE TABLE Sellers.Sellers (
 
 GRANT SELECT TO A1;
 DENY UPDATE TO A1;
+
+---------------------------------------------
+
+CREATE PROCEDURE AddNewSeller
+(@FirstName nvarchar(50),
+ @SecondName nvarchar(50)) 	
+AS
+BEGIN
+	INSERT INTO Sellers.Sellers (Sellers.Sellers.FirstName, Sellers.Sellers.SecondName) values
+	(@FirstName, @SecondName)
+END
+GO
