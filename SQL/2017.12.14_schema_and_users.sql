@@ -23,6 +23,25 @@ select *from Sellers.Sellers
 ALTER SCHEMA dbo TRANSFER Sellers.Sellers;
 GO
 
+----------------------------
+CREATE LOGIN Alisa2 
+    WITH PASSWORD = '123';
+USE alisa;
+CREATE USER A2 FOR LOGIN Alisa2;
+GO 
+
+CREATE ROLE Sel AUTHORIZATION A2;  
+GO  
+
+GRANT SELECT ON PhoneCalls
+    TO A2;
+
+--дать права пользователю A1 на передачу другому пользователю insert
+
+GRANT INSERT ON PhoneCalls
+    TO A1
+	With grant option;
+
 ---------------------------------------------
 
 CREATE PROCEDURE AddNewSeller
@@ -35,14 +54,4 @@ BEGIN
 END
 GO
 
-CREATE LOGIN Alisa2 
-    WITH PASSWORD = '123';
-USE alisa;
-CREATE USER A2 FOR LOGIN Alisa2;
-GO 
 
-CREATE ROLE Sel AUTHORIZATION A2;  
-GO  
-
-GRANT SELECT ON PhoneCalls
-    TO A2;
