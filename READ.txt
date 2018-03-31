@@ -1,0 +1,12 @@
+скачать sdl2.tar.gz
+распоковать в папку game-dev
+далее выполняем инструкции для Cmake прописанные README-cmake.md
+mkdir build
+cd build
+cmake ../SDL2
+make install
+
+или
+https://wiki.libsdl.org/Installation
+CFLAGS='-O0 -g' ./configure
+так запустила версию дебага
