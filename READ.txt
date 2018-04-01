@@ -10,3 +10,15 @@ make install
 https://wiki.libsdl.org/Installation
 CFLAGS='-O0 -g' ./configure
 так запустила версию дебага
+
+cmake --version
+скачать исходники SDL2.tar.gz
+распоковать в папку game-dev
+mkdir SDL2build
+cd SDL2build
+cmake gui
+cmake ../SDL2
+
+sudo apt-get install cmake-gui
+
+
