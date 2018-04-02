@@ -39,3 +39,18 @@ sudo apt -remove sdl2-dev
 для правильной сборки приложения с библиотекой
 надо сначала слинковать библиотеку, потом заинстались
 потом скомпилировать с приложением
+
+запускаем eclipse
+создаем новый проект
+после нажатия advanced, устнавливаем еще одну опцию
+c/c++ General -> Preprocessor include Paths, Macros etc.
+находим СMAKE_EXPORT_COMPILE_COMMANDS Parser Ставим галочку и перемещаем вверх
+для того, чтобы сработало первее cmake parser
+в CDT GCC Built-in Compiler Settings дописываем -std=c++17
+Нажимаем apply и apply and close. нажимаем finish
+
+подключение статической библиотеки
+создаем файл main.cxx описан выше
+создаем файл CMakeLists.txt
+
+
