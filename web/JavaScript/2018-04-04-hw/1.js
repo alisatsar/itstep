@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	var inputEl = document.getElementById('input').value;
 	
 	
-	bToLower.addEventListener('click', function(){
-		inputEl.innerText = inputEl.value.toLowerCase();
+	inputEl.addEventListener('keyup', function(){
+		this.innerText = this.value.toUpperCase();
 		//document.getElementById('input').value = inputEl.toLowerCase();
 	});
 	
