@@ -2,10 +2,13 @@
 Игровой цикл обрабатывает пользовательский ввод, но не ожидает его.
 Цикл продолжает крутиться всегда.
 ```
+while (true)
+{
  $ Events()
  $ update(delta t) or animate, interpolate
  $ render() const
  $ swap()
+}
 ```
 
  
