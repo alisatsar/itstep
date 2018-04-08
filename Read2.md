@@ -4,10 +4,10 @@
 ```
 while (true)
 {
- $ Events()
- $ update(delta t) or animate, interpolate
- $ render() const
- $ swap()
+  Events()
+  update(delta t) or animate, interpolate
+  render() const
+  swap()
 }
 ```
 
