@@ -39,6 +39,6 @@ while (true)
 
 ///комментарии, которые помогают документировать
 строчка перед методом попадет в документацию
-<a href="https://habrahabr.ru/post/252101/">doxygen</a> Открытый графический движок<br>
+<a href="https://habrahabr.ru/post/252101/">doxygen</a><br>
 
 
