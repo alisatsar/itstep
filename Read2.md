@@ -5,3 +5,8 @@
 Программы, предназначенные для выполнения на процессорах видеокарты, получили название
 <a href="https://ru.wikipedia.org/wiki/%D0%A8%D0%B5%D0%B9%D0%B4%D0%B5%D1%80"><b>шейдеры</b></a><br>
 <a href="https://gamedev.ru/code/articles/faq_matrix_quat?page=2"><b>матрицы</b></a><br>
+
+Устанавливаем либы:<br>
+```
+ sudo apt-get install libglfw3-dev libgles2-mesa-dev
+```
