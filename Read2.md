@@ -1,5 +1,6 @@
 ## SHADERS STEP by STEP
 <a href="http://docs.gl/"><b>OPEN GL documentation</b><a><br>
+<a href="https://www.khronos.org/opengles/sdk/docs/reference_cards/OpenGL-ES-2_0-Reference-card.pdf"><b>ES 2.0</b><a><br>
 1. Сначала создаем шейдер вершин, возвращает ненулевое значение, дескриптор:<br>
 <a href="http://docs.gl/es2/glCreateShader"><b>glCreateShader</b><a><br>
 ```
