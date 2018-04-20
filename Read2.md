@@ -85,4 +85,63 @@ if(!success)
 	std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
 }
 	
-```  
+``` 
+9. После того как шейдеры успешно скомпилированы, можно создать общий шейдер:<br>
+<a href="http://docs.gl/es2/glCreateProgram"><b>glCreateProgram</b><a><br>
+если программа не была создана, удаляем наши шейдеры<br>
+<a href="http://docs.gl/es2/glDeleteShader"><b>glDeleteShader</b><a><br>
+	
+```
+GLuint shader_program = glCreateProgram();
+if (0 == shader_program)
+{
+	std::cout << "failed to create gl program";
+	glDeleteShader(vert_shader);
+	glDeleteShader(fragment_shader);
+}
+	
+```
+10. Прикрепляем наши шейдеры к программе:<br>
+<a href="http://docs.gl/es2/glAttachShader"><b>glAttachShader</b><a><br>
+	
+```
+glAttachShader(shader_program, vert_shader);
+glAttachShader(shader_program, fragment_shader);
+	
+```
+11. Связываем атрибут вершины из шейдера с проименованной переменной атрибута:<br>
+<a href="http://docs.gl/es2/glBindAttribLocation"><b>glBindAttribLocation</b><a><br>
+	
+```
+glBindAttribLocation(shader_program, 0, "a_position");
+	
+```
+12. Линкуем нашу шейдерную програму:<br>
+<a href="http://docs.gl/es2/glLinkProgram"><b>glLinkProgram</b><a><br>
+	
+```
+glLinkProgram(shader_program);
+	
+```
+13. Проверяем слинковалась ли:<br>
+<a href="http://docs.gl/es2/glGetProgramiv"><b>glGetProgramiv</b><a><br>
+<a href="http://docs.gl/es2/glGetProgramInfoLog"><b>glGetProgramInfoLog</b><a><br>
+	
+```
+glGetProgramiv(shader_program, GL_LINK_STATUS, &program_linked);
+if (program_linked != GL_TRUE)
+{
+	GLsizei log_length = 0;
+	GLchar message[1024];
+	glGetProgramInfoLog(shader_program, 1024, &log_length, message);
+	std::cout << "ERROR::LINKED IS_FAILED\n" << message << std::endl;
+}
+	
+```
+14. Устанавливаем наш программный объект как часть текущего состояния рендеринга:<br>
+<a href="http://docs.gl/es2/glUseProgram"><b>glUseProgram</b><a><br>
+	
+```
+glUseProgram(shader_program);
+	
+```
