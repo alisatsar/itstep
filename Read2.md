@@ -38,5 +38,13 @@ glShaderSource(vert_shader, 1, &vertex_shader_src, NULL);
 glCompileShader(vert_shader);
 	
 ```  
+4. Компилируем шейдер:<br>
+<a href="http://docs.gl/es2/glCompileShader"><b>glCompileShader</b><a><br>
+	
+```
+glCompileShader(vert_shader);
+	
+```  
+
 
 
