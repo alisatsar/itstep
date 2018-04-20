@@ -145,3 +145,28 @@ if (program_linked != GL_TRUE)
 glUseProgram(shader_program);
 	
 ```
+15. после того, как мы отправили входные данные на GPU<br>
+мы должны проиструктировать GPU как обрабатывать данные вершин в шейдерах:<br>
+<a href="http://docs.gl/es2/glVertexAttribPointer"><b>glVertexAttribPointer</b><a><br>
+	
+```
+te::triangle& t; (наш триугольник)
+glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(te::vertex), &t.v[0]);
+где 0 - это дескриптор
+
+```
+16. включаем массив атрибута вершин, теперь этот массив доступен для рендеринга при вызове команд<br>
+вершинного массива, таких как glDrawArrays или glDrawElements.<br>
+<a href="http://docs.gl/es2/glEnableVertexAttribArray"><b>glEnableVertexAttribArray</b><a><br>
+	
+```
+glEnableVertexAttribArray(0);
+	
+```
+17. рендерит примитивы из массива данных<br>
+<a href="http://docs.gl/es2/glDrawArrays"><b>glDrawArrays</b><a><br>
+	
+```
+glDrawArrays(GL_TRIANGLES, 0, 3);
+	
+```
