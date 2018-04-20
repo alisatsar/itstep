@@ -1,11 +1,11 @@
-## SHADERS STEP by STEP
-<a href="http://docs.gl/"><b>OPEN GL documentation</b><a><br>
-<a href="https://www.khronos.org/opengles/sdk/docs/reference_cards/OpenGL-ES-2_0-Reference-card.pdf"><b>ES 2.0</b><a><br>
-1. Сначала создаем шейдер вершин, возвращает ненулевое значение, дескриптор:<br>
-<a href="http://docs.gl/es2/glCreateShader"><b>glCreateShader</b><a><br>
+## LOAD TEXTURE STEP by STEP
+
+1. Возвращает целое число, которое есть локацию указанной uniform variable "s_texture"<br>
+внутри объекта программы shader_program:<br>
+<a href="http://docs.gl/es2/glGetUniformLocation"><b>glGetUniformLocation</b><a><br>
 	
 ```
-GLuint vert_shader = glCreateShader(GL_VERTEX_SHADER);
+int location = glGetUniformLocation(shader_program, "s_texture");
 	
 ```
 2. Создаем строку, в котором прописываем текст шейдера:<br>
