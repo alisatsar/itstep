@@ -20,5 +20,18 @@ void main()
 {
 	gl_Position = vec4(a_position, 0.f, 1.f);
 })";
+	
+```  
+3. Заменяем исходный код в шейдерном объекте:<br>
+<a href="http://docs.gl/es2/glShaderSource"><b>glShaderSource</b><a><br>
+```
+glShaderSource(vert_shader, 1, &vertex_shader_src, NULL);
+	
+```  
+3. Заменяем исходный код в шейдерном объекте:<br>
+<a href="http://docs.gl/es2/glShaderSource"><b>glShaderSource</b><a><br>
+```
+glShaderSource(vert_shader, 1, &vertex_shader_src, NULL);
+	
 ```  
 
