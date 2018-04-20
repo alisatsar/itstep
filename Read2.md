@@ -6,11 +6,12 @@
 GLuint vert_shader = glCreateShader(GL_VERTEX_SHADER);
 ```
 2. Создаем строку, в котором прописываем текст шейдера:<br>
-  attribute - спецификатор<br>
+  <b>attribute</b> - спецификатор<br>
   переменные могут быть объявлены предварительно в хранилище спецификатора<br>
   Связь между вершинным шейдером и OpenGL ES для первичных данных по вершинам<br>
-  vec2 
-<a href="http://docs.gl/es2/glCreateShader"><b>glCreateShader</b><a><br>
+  <b>vec2</b> - 2 вектора типа float<br>
+  <b>gl_Position</b> - Outputs: специальная переменная для вертексного шейдера<br>
+	трансформированные вершины <br>
 ```
 const GLchar* vertex_shader_src = R"(
 attribute vec2 a_position;
