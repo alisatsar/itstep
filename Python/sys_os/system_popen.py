@@ -35,4 +35,11 @@
 >>> listing
 	      
 ['1\n', '2\n', '3\n', '4\n', '5 ‚ҐабвЄ\xa0 ¤Ё\xa0«®Ј\xa0\n', 'Є\xa0Є зв® ¤Ґ«\xa0«\xa0.txt\n']
->>> 
+
+>>>os.system(r'python 2_1_delete_amount.py\n')
+2
+>>> output = os.popen(r'python 2_1_delete_amount.py\n').read()
+	      
+>>> output
+	      
+''
