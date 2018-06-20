@@ -67,3 +67,9 @@ True
 >>> os.path.abspath(r'C:\Users\Tsarev\Desktop\my.py') #абсолютные пути не изменяются
 'C:\\Users\\Tsarev\\Desktop\\my.py'
 >>> os.startfile('my.py') #стартует файл
+>>> os.stat(r'my.py')
+os.stat_result(st_mode=33206, st_ino=3377699720675444, st_dev=3371404606, st_nlink=1, 
+               st_uid=0, st_gid=0, st_size=303, st_atime=1529340691, st_mtime=1529343150, st_ctime=1529340691)
+>>> for line in os.popen('dir /B *.py'):
+	      print(line, end='')	
+my.py
