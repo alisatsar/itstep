@@ -66,3 +66,4 @@ True
 'C:\\'
 >>> os.path.abspath(r'C:\Users\Tsarev\Desktop\my.py') #абсолютные пути не изменяются
 'C:\\Users\\Tsarev\\Desktop\\my.py'
+>>> os.startfile('my.py') #стартует файл
