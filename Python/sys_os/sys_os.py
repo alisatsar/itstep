@@ -49,3 +49,20 @@ True
 'C:\\Users\\Tsarev\\Desktop\\my.py'
 >>> os.path.join(*pathname.split(os.sep))
 'C:Users\\Tsarev\\Desktop\\my.py'
+>>> os.path.normpath(r'C:\\Users/Tsarev\Desktop\\my.py') #вернет нормальный путь
+'C:\\Users\\Tsarev\\Desktop\\my.py'
+>>> os.chdir(r'C:\Users')
+>>> os.getcwd()
+'C:\\Users'
+>>> os.path.abspath('') #пустая строка означает тек. раб. каталог (cwd)
+'C:\\Users'
+>>> os.path.abspath('Desktop') #расширяет до полного пути к файлу в тек. кат
+'C:\\Users\\Desktop'
+>>> os.path.abspath(r'Tsarev/Desktop') #частичный путь относительно тек. раб. кат.
+'C:\\Users\\Tsarev\\Desktop'
+>>> os.path.abspath('.') #расширяетт относительные пути
+'C:\\Users'
+>>> os.path.abspath('..')
+'C:\\'
+>>> os.path.abspath(r'C:\Users\Tsarev\Desktop\my.py') #абсолютные пути не изменяются
+'C:\\Users\\Tsarev\\Desktop\\my.py'
