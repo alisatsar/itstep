@@ -40,3 +40,12 @@ True
 'my.py'
 >>> os.path.splitext(r'C:\Users\Tsarev\Desktop\my.py')  #Вернет arg[1] расширение
 ('C:\\Users\\Tsarev\\Desktop\\my', '.py')
+>>> pathname = r'C:\Users\Tsarev\Desktop\my.py'
+>>> os.path.split(pathname) #отделить имя файла от каталога
+('C:\\Users\\Tsarev\\Desktop', 'my.py')
+>>> pathname.split(os.sep) #разбить путь по символам слеша
+['C:', 'Users', 'Tsarev', 'Desktop', 'my.py']
+>>> os.sep.join(pathname.split(os.sep))
+'C:\\Users\\Tsarev\\Desktop\\my.py'
+>>> os.path.join(*pathname.split(os.sep))
+'C:Users\\Tsarev\\Desktop\\my.py'
