@@ -14,7 +14,7 @@ open(‘hello-in.txt’, ‘w’).write(‘Hello ‘ + inp + ‘\n’)
 >>> x
 2
 >>> pipe = Popen('python hello-out.py', stdout=PIPE) #объект с открытым каналом sdtout
->>> pipe.communicate()[0] #return tuple stdout_data (becouse 0 element)
+>>> pipe.communicate()[0] #return tuple stdout_data
 b'Hello shell world\r\n'
 >>> pipe.returncode #код завершения
 0
