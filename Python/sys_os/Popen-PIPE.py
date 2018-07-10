@@ -56,3 +56,33 @@ print('The meaning of life is', data, int(data) * 2)
 >>> output
 b'Got this: "Lumberjack"\r\nThe meaning of life is 12 24\r\n'
 
+nano writer.py
+-------
+print("Help! Help! I'm beign repressed!")
+print(42)
+-------
+python writer.py | python reader.py
+
+Got this: “Help! Help! I’m being repressed!”
+The meaning of life is 42 84
+
+C:\...\PP4E\System\Streams> python
+>>> from subprocess import Popen, PIPE
+>>> p1 = Popen(‘python writer.py’, stdout=PIPE)
+>>> p2 = Popen(‘python reader.py’, stdin=p1.stdout, stdout=PIPE)
+>>> output = p2.communicate()[0]
+>>> output
+b’Got this: “Help! Help! I\’m being repressed!”\r\nThe meaning of life is 42 84\r\n’
+>>> p2.returncode
+0
+
+>>> import os
+>>> p1 = os.popen(‘python writer.py’, ‘r’)
+>>> p2 = os.popen(‘python reader.py’, ‘w’)
+>>> p2.write( p1.read() )
+36
+>>> X = p2.close()
+Got this: “Help! Help! I’m being repressed!”
+The meaning of life is 42 84
+>>> print(X)
+None
