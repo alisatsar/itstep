@@ -35,4 +35,24 @@ b'Hello shell world\r\n'
 'Hello Pokey\n'
 >>> 
 
+---------------------------------------------------------------------------------
+nano reader.py
+-------
+print('Got this: "%s"' % input())
+import sys
+data = sys.stdin.readline()[:-1]
+print('The meaning of life is', data, int(data) * 2)
+-------
+>>> from subprocess import Popen, PIPE
+>>> pipe = Popen('python reader.py', stdin=PIPE, stdout=PIPE)
+>>> pipe.stdin.write(b'Lumberjack\n')
+11
+>>> pipe.stdin.write(b'12\n')
+3
+>>> pipe.stdin.close()
+>>> output = pipe.stdout.read()
+>>> pipe.wait()
+0
+>>> output
+b'Got this: "Lumberjack"\r\nThe meaning of life is 12 24\r\n'
 
