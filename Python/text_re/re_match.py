@@ -24,3 +24,10 @@ None
 >>> match_obj = compile_reg.match(text1)
 >>> match_obj.group(1)
 ' spam...'
+
+
+>>> pat = re.compile('[ \t]*hello[ \t]+(.*)[Ww]orld')
+>>> line = ' hello spamworld'
+>>> match_obj = pat.match(line)
+>>> match_obj.group(1)
+'spam'
