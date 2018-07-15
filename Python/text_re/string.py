@@ -46,3 +46,10 @@
 ---
 ---Spam---
 ---shrubbery---
+>>> import string
+>>> template = string.Template('---$key1---$key2---')
+>>> template.substitute(vals)
+'---Spam---shrubbery---'
+>>> template.substitute(key1='Brian', key2='Loretta')
+'---Brian---Loretta---'
+>>> 
