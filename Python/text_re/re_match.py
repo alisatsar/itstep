@@ -6,6 +6,16 @@
 пропускает один и более символов пробела и табуляции'''
 '''[Ww]
 может начинаться или с W или w'''
+'''\s* 
+в следующем примере обозначают ноль или более пробельных
+символов (задан класс символов);'''
+'''\s+ 
+– означают один или более таких символов;'''
+'''/? 
+соответствует необязательному символу слэша;'''
+'''[a-z] 
+любому строчному символу (задан диапазон);'''
+
 
 >>> text1 = 'hello spam...World'
 >>> text2 = 'hello spam...other'
@@ -31,3 +41,39 @@ None
 >>> match_obj = pat.match(line)
 >>> match_obj.group(1)
 'spam'
+
+>>> import re
+>>> re.split('--', 'aaa--bbb-ccc')
+['aaa', 'bbb-ccc']
+>>> re.split('--', 'aaa--bbb--ccc')
+['aaa', 'bbb', 'ccc']
+>>> re.sub('--', '...', 'aaa--bbb--ccc')
+'aaa...bbb...ccc'
+>>> re.split('--|==', 'aaa--bbb==ccc')
+['aaa', 'bbb', 'ccc']
+>>> re.sub('--|==', '...', 'aaa--bbb==ccc')
+'aaa...bbb...ccc'
+>>> re.split('[-=]', 'aaa-bbb=ccc')
+['aaa', 'bbb', 'ccc']
+>>> re.split('(--)|(==)', 'aaa--bbb==ccc')
+['aaa', '--', None, 'bbb', None, '==', 'ccc']
+>>> re.split('(?:--)|(?:==)', 'aaa--bbb==ccc')
+['aaa', 'bbb', 'ccc']
+>>> 'spam/ham/eggs'.split('/')
+['spam', 'ham', 'eggs']
+>>> re.match('(.*)/(.*)/(.*)', 'spam/ham/eggs').group()
+'spam/ham/eggs'
+>>> re.match('(.*)/(.*)/(.*)', 'spam/ham/eggs').groups()
+('spam', 'ham', 'eggs')
+>>> re.match('<(.*)>/<(.*)>/<(.*)>', '<spam>/<ham>/<eggs>').groups()
+('spam', 'ham', 'eggs')
+>>> re.match('\s*<(.*)>/?<(.*)>/?<(.*)>', '<spam>/<ham>/<eggs>').groups()
+('spam', 'ham', 'eggs')
+>>> 'Hello pattern world!'.split()
+['Hello', 'pattern', 'world!']
+>>> re.match('Hello\s*([a-z]*)\s+(.*?)\s*!', 'Hellopattern world !').groups()
+('pattern', 'world')
+>>> 
+
+
+
