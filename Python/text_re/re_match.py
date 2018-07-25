@@ -75,5 +75,10 @@ None
 ('pattern', 'world')
 >>> 
 
-
+>>> p = re.compile('A(.)B(.)C(.)')
+>>> m = p.match('A0B1C2')
+>>> print(m.group(1), m.group(2), m.group(3))
+0 1 2
+>>> print(m.group(0))
+A0B1C2
 
